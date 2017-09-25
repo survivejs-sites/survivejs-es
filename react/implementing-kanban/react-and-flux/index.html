@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta
+      name='viewport'
+      content='width=device-width, initial-scale=1, maximum-scale=1, minimal-ui' />
+    <meta
+      name='description'
+      content=SurviveJS />
+    <meta
+      name='keywords'
+      content= />
+    <title>SurviveJS</title>
+    
+    <link rel='icon' type='image/png' href='/assets/favicon.png'></link>
+
+    
+      <link href="/site.17316cb466d661c9c3c0.css" rel="stylesheet">
+    
+  </head>
+  <body>
+    <div><div class="chapter__wrapper"><div class="header-image" style="background-image:url(/c2c6fb3487ec955820af043223c44e59.jpg);"></div><h1 class="post__heading">React y Flux</h1><div class="header-extra"><a href="https://www.flickr.com/photos/126433814@N04/16298563416">jeremyg3030 (CC BY)</a></div><div class="toc-nav__wrapper"><h4 class="search-nav--header">Search</h4><input id="search"/><h4 class="toc-nav--header">Índice</h4><ul class="toc-nav"><li class="toc-intro"><a class="toc-nav__link intro" href="/react/introduction/">Introducción</a></li><li class="toc-part"><a class="toc-nav__link part" href="/react/getting-started/">Comenzando</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/introduction-to-react/">Introducción a React</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/setting-up-the-project/">Configurando el Proyecto</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/implementing-notes/">Implementando una Aplicación de Notas</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/deleting-notes/">Borrado de Notas</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/understanding-react-components/">Comprendiendo los Componentes de React</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/editing-notes/">Edición de Notas</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/styling-notes/">Dando Estilo a la Aplicación de Notas</a></li><li class="toc-part"><a class="toc-nav__link part" href="/react/implementing-kanban/">Implementando Kanban</a></li><li class="toc-chapter"><span class="toc-nav__link toc-nav__link--current chapter">React y Flux</span></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/implementing-kanban/implementing-store-and-actions/">Implementando NoteStore y NoteActions</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/implementing-kanban/implementing-persistency/">Implementando Persistencia en localStorage</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/implementing-kanban/handling-data-dependencies/">Gestionado Dependencias de Datos</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/implementing-kanban/editing-lanes/">Editando los Carriles</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/implementing-kanban/drag-and-drop/">Implementado Arrastrar y Soltar</a></li><li class="toc-part"><a class="toc-nav__link part" href="/react/advanced-techniques/">Técnicas Avanzadas</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/advanced-techniques/testing-react/">Probando React</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/advanced-techniques/typing-with-react/">Tipado con React</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/advanced-techniques/styling-react/">Aplicando Estilo a React</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/advanced-techniques/structuring-react-projects/">Estructurando Proyectos con React</a></li><li class="toc-part"><a class="toc-nav__link part" href="/react/appendices/">Apéndices</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/appendices/language-features/">Características del Lenguaje</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/appendices/understanding-decorators/">Entendiendo los Decoradores</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/appendices/troubleshooting/">Resolución de Problemas</a></li></ul></div><div class="chapter"><div class="post__content"><div class="chapter-content"><p>Puedes llegar bastante lejos guardándolo todo en componentes, lo cual es una forma completamente válida de comenzar. El problema comenzará cuando añadas estado a tu aplicación y necesites compartirlo en distintos sitios. Por este motivo han sido varios los gestores de estado que han aparecido. Cada uno de ellos trata de resolver el problema a su manera.</p>
+<p>La <a href="https://facebook.github.io/flux/docs/overview.html">arquitectura Flux de aplicaciones</a> fué la primera solución al problema. Te permite modelar tu aplicación mediante el uso de <strong>Acciones</strong>, <strong>Almacenes</strong> y <strong>Vistas</strong>. También tiene una parte conocida como <strong>Dispatcher</strong> con la que gestionar acciones y permitirte modelar dependencias entre las distintas llamadas.</p>
+<p>Esta forma de oganización es particulamente útil cuando estas trabajando en equipos grandes. El flujo unidireccional hace fácil poder saber qué está pasando. Este es un elemento común de varias soluciones de gestión de estados disponibles en React.</p>
+<h2 class="header"><a class="header-anchor" href="#breve-introducci-n-a-redux" id="breve-introducci-n-a-redux"></a><span class="text">Breve Introducción a Redux</span><a class="header-anchor-select" href="#breve-introducci-n-a-redux">#</a></h2>
+<p>Existe una solución llamada <a href="http://redux.js.org/">Redux</a> que rescata las ideas principales de Flux y las moldea para tener una forma concreta. Redux es más que una simple guía que sirve para que le dés a tu aplicación cierta estructura ya que te empuja a modelar todo lo relacionado con la gestión de los datos de una manera concreta. Mantendrás el estado de tu aplicación en una estructura de árbol que modificarás usando funciones puras (las cuales no tienen efectos secundarios) mediante reductores.</p>
+<p>Puede parecer un poco complicado pero, en la práctica, Redux hace que el flujo de tus datos sea explícito. Flux estándar no es dogmático en algunas cosas. Creo que entender Flux de forma básica antes de produndizar en Redux es una buena idea para ver cosas que ambos tienen en común.</p>
+<h2 class="header"><a class="header-anchor" href="#breve-introducci-n-a-mobx" id="breve-introducci-n-a-mobx"></a><span class="text">Breve Introducción a MobX</span><a class="header-anchor-select" href="#breve-introducci-n-a-mobx">#</a></h2>
+<p><a href="https://mobxjs.github.io/mobx/">MobX</a> tiene un punto de vista totalmente diferente sobre la gestión de datos. Si Redux te ayuda a modelar tu flujo de datos de manera explícita, MobX hace el esfuerzo de que sea implícita. No te obliga a seguir determinada estructura. En su lugar, tendrás que anotar tus estructuras de datos como <strong>observable</strong> y dejar a MobX gestionar cuándo se actualizan tus vistas.</p>
+<p>Mientras que Redux adopta el concepto de inmutabilidad a través de la idea de los reductores, MobX hace justo lo contrario y apoya la mutación. Esto implica que ciertos asuntos como la gestión de referencias pueden ser extraordinariamente sencillos en MobX mientras que en Redux te verás forzado a normalizar tus datos para que puedas manipularlos fácilmente con reductores.</p>
+<p>Tanto Redux como MobX son valiosos a su manera. No hay una solución correcta cuando de la gestión de datos se trata. Estoy seguro de que aparecerán más alternativas a medida que pase el tiempo. Cada solución tiene sus propias ventajas e inconvenientes. Entendiendo las alternativas tendrás una mejor capacidad de seleccionar la solución que mejor encaje con lo que necesites llegado el momento.</p>
+<h2 class="header"><a class="header-anchor" href="#-qu-sistema-de-gesti-n-de-estados-deber-a-utilizar-" id="-qu-sistema-de-gesti-n-de-estados-deber-a-utilizar-"></a><span class="text">¿Qué Sistema de Gestión de Estados Debería Utilizar?</span><a class="header-anchor-select" href="#-qu-sistema-de-gesti-n-de-estados-deber-a-utilizar-">#</a></h2>
+<p>El mapa de gestores de estados está cambiando constantemente. En la actualidad <a href="http://redux.js.org">Redux</a> es muy popular, pero hay buenas alternativas a la vista. <a href="https://github.com/voronianski/flux-comparison">voronianski/flux-comparison</a> muestra una comparativa entre algunos de los más populares.</p>
+<p>La elección de una librería está condicionada por tus propias preferencias personales. Tienes que tener en cuenta factores como API, funcionalidades, documentación y soporte. Comenzar con una de las alternativas más populares puede ser una buena idea. Podrás hacer elecciones que se ajusten más a lo que quieres a medida que vayas conociendo mejor la arquitectura.</p>
+<p>Para esta aplicación vamos a utilizar una implementación de Flux conocida con el nombre de <a href="http://alt.js.org/">Alt</a>. Su API está bien diseñado y es suficiente para nuestro propósito. Como extra, Alt ha sido diseñado teniendo en mente el renderizado isomórfico (renderiza de igual manera tanto en servidor como en cliente). Si conoces Flux tendrás un buen punto de partida con el que comprender mejor las alternativas.</p>
+<p>El libro no cubre todas las soluciones alternativas en detalle todavía, pero diseñaremos la aplicación de tal forma que podamos utilizar alternativas más adelante. La idea es que podamos aislar la vista de la gestión de datos para que podamos intercambiar esta gestión sin tener que cambiar código de React. Es una forma de diseñar pensando en el cambio.</p>
+<h2 class="header"><a class="header-anchor" href="#introducci-n-a-flux" id="introducci-n-a-flux"></a><span class="text">Introducción a Flux</span><a class="header-anchor-select" href="#introducci-n-a-flux">#</a></h2>
+<p><img src="/57295bdf4b9728103ebe4bb9983d2da4.png" alt="Flujo de Datos Unidirectional de Flux" class="" width="" height="" /></p>
+<p>De momento sólo hemos trabajado con vistas. La arquitectura Flux introduce un par de conceptos nuevos, los cuales son acciones, dispatchers y almacenes. Flux implementa un flujo unidireccional, al contrario que otros frameworks populares como Angular o Ember. Aunque los flujos bidireccionales puedan ser convenientes, éstos tienen un coste. Puede ser difícil saber qué está pasando y por qué.</p>
+<h3 class="header"><a class="header-anchor" href="#acciones-y-almacenes" id="acciones-y-almacenes"></a><span class="text">Acciones y Almacenes</span><a class="header-anchor-select" href="#acciones-y-almacenes">#</a></h3>
+<p>Flux no es totalmente trivial ya que hay algunos conceptos que tener en cuenta. En nuestro caso modelaremos <code>NoteActions</code> y <code>NoteStore</code>. <code>NoteActions</code> facilita operaciones concretas que podremos realizar sobre nuestros datos. Por ejemplo, podremos tener <code>NoteActions.create({task: &#39;Aprender React&#39;})</code>.</p>
+<h3 class="header"><a class="header-anchor" href="#dispatcher" id="dispatcher"></a><span class="text">Dispatcher</span><a class="header-anchor-select" href="#dispatcher">#</a></h3>
+<p>El dispatcher percibirá que hemos ejecutado una acción. No sólo eso, sino que el dispatcher será capaz de lidiar con las posibles dependencias que existan entre almacenes. Es probable que cierta acción necesite ser ejecutada después de otra, el dispacher nos permitirá lograr todo ello.</p>
+<p>El almacén detectará que el dispacher ha procesado una acción y se invocará. En nuestro caso se notificará a <code>NoteStore</code>. Como resultado, será capaz de actualizar su estado interno y, tras hacer esto, notificará del nuevo estado.</p>
+<h3 class="header"><a class="header-anchor" href="#el-flujo-de-datos-de-flux" id="el-flujo-de-datos-de-flux"></a><span class="text">El Flujo de Datos de Flux</span><a class="header-anchor-select" href="#el-flujo-de-datos-de-flux">#</a></h3>
+<p>Esto completa el flujo de flujo unidireccional, aunque lineal, básico de Flux. Por regla general el proceso unidireccional tiene un flujo cíclico que no necesariamente termina. El siguiente diagrama ilustra un flujo más común. Es la misma idea de nuevo, pero incluye un ciclo de retorno. Para terminar, los componentes se actualizan a través de este proceso de bucle dependiendo de los datos de nuestro almacén.</p>
+<p><img src="/49c461631b7c23ac0b11cbe29ecb4229.png" alt="Flujo de Datos Cíclico de Flux" class="" width="" height="" /></p>
+<p>Parece que se dan muchos pasos para conseguir algo tan simple como crear una nueva <code>Nota</code>. Esta aproximación, sin embargo, conlleva sus propios beneficios. Es muy fácil de trazar y de depurar puesto que el flujo siempre actúa en una única dirección. Si algo está mal, está en algún lugar del ciclo.</p>
+<p>Mejor todavía: podemos ver los datos que recorren nuestra aplicación. Tan sólo conecta tu vista a tu almacén y ya lo tienes. Ésta es uno de las mayores ventajas de utilizar una solución de gestión de estados.</p>
+<h3 class="header"><a class="header-anchor" href="#ventajas-de-flux" id="ventajas-de-flux"></a><span class="text">Ventajas de Flux</span><a class="header-anchor-select" href="#ventajas-de-flux">#</a></h3>
+<p>Aunque todo esto suene complicado, esta forma de trabajar dará flexibilidad a tu aplicación. Podemos, por ejemplo, implementar comunicación con un API, cachés, e internacionalización fuera de nuestras vistas. De esta forma se mantienen lejos de la lógica a la vez que las aplicaciones siguen siendo fáciles de entender.</p>
+<p>Implementar una arquitectura Flux en tu aplicación incrementará la cantidad de código de alguna manera. Es importante comprender que la meta de Flux no es minimizar la cantidad de código escrito. Ha sido diseñado para que haya productividad en equipos grandes. Siempre se puede decir que explícito es mejor que implícito.</p>
+<h2 class="header"><a class="header-anchor" href="#migrando-a-alt" id="migrando-a-alt"></a><span class="text">Migrando a Alt</span><a class="header-anchor-select" href="#migrando-a-alt">#</a></h2>
+<p><img src="/58e74eda145f40f494fea8ee94930770.png" alt="Alt" class="" width="" height="" /></p>
+<p>En Alt trabajarás con acciones y almacenes. El dispatcher está oculto, pero puedes acceder a él si lo necesitas. Comparado con otras implementaciones, Alt oculta mucho código reutilizable. Tiene algunas ceracterísticas especiales que te permitirán guardar y recuperar el estado de la aplicación, lo cual es útil para implementar tanto persistencia como renderizado universal.</p>
+<p>Hay un par de pasos que debemos seguir para permitir que Alt gestione el estado de nuestra aplicación:</p>
+<ol>
+<li>Configurar una instancia de Alt para que siga las acciones, los almacenes y coordine la comunicación.</li>
+<li>Conectar Alt con las vistas.</li>
+<li>Dejar nuestros datos en un almacén.</li>
+<li>Definir acciones que permitan manipular el almacén.</li>
+</ol>
+<p>Lo iremos haciendo paso a paso.  Las partes específicas de Alt van después de los adaptadores. El enfoque de adaptadores nos permite cambiar fácilmente de idea más adelante así que vale la pena implementarlos.</p>
+<h3 class="header"><a class="header-anchor" href="#configurando-una-instancia-de-alt" id="configurando-una-instancia-de-alt"></a><span class="text">Configurando una Instancia de Alt</span><a class="header-anchor-select" href="#configurando-una-instancia-de-alt">#</a></h3>
+<p>Todo en Alt comienza desde una instancia de Alt. Hace un seguimiento de las acciones y los almacenes y permite que la comunicación fluya. Para hacer que todo sea sencillo trataremos a todos los componentes de Alt como si fueran <a href="https://es.wikipedia.org/wiki/Singleton">singleton</a>. Gracias a este patrón podremos reutilizar la misma instancia dentro de nuestra aplicación.</p>
+<p>Para conseguirlo podemos dejarlo en un módulo y referenciarlo desde cualquier sitio. Configúralo tal y como sigue:</p>
+<p><strong>app/libs/alt.js</strong></p>
+<pre><code class="lang-javascript"><span class="token keyword" >import</span> Alt <span class="token keyword" >from</span> <span class="token string" >'alt'</span><span class="token punctuation" >;</span>
+
+<span class="token keyword" >const</span> alt <span class="token operator" >=</span> <span class="token keyword" >new</span> <span class="token class-name" >Alt</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+<span class="token keyword" >export</span> <span class="token keyword" >default</span> alt<span class="token punctuation" >;</span>
+</code></pre>
+<p>Esta es la forma estándar de implementar <em>singletons</em> usando la sintaxis de ES6. Cachea el módulo de tal forma que te devolverá la misma instancia la próxima vez que importes Alt desde donde sea.</p>
+<blockquote class="tip"><i class="icon-attention-circled"></i>Observa que <code>alt.js</code> debe ir bajo <code>app/libs</code>, ¡no en el directorio <code>libs</code> del raíz!</blockquote><blockquote class="tip"><i class="icon-attention-circled"></i>El patrón singleton garantiza que habrá una y sólo una instancia. Este es precisamente el comportamiento que queremos ahora.</blockquote><h3 class="header"><a class="header-anchor" href="#uniendo-alt-con-las-vistas" id="uniendo-alt-con-las-vistas"></a><span class="text">Uniendo Alt con las Vistas</span><a class="header-anchor-select" href="#uniendo-alt-con-las-vistas">#</a></h3>
+<p>Por normal general los gestores de estados facilitan dos cosas que pueden ser usadas para conectar con una aplicación React. Esto son el <code>Proveedor</code> y una función de alto nivel <code>conectar</code> (una función que devuelve una función que genera un componente). El <code>Proveedor</code> configura un <a href="https://facebook.github.io/react/docs/context.html">contexto de react</a>.</p>
+<p>Los contextos son una característica avanzada que puede ser utilizada para enviar datos de forma implícita a través de la jerarquía de componentes sin utilizar props. La función <code>conectar</code> utiliza el contexto para cavar un hueco en el que enviar los datos al componente.</p>
+<p>Es posible utilizar <code>conectar</code> a través de la invocación de funciones o de un decorador como veremos pronto. El apéndice <em>Entendiendo los Decoradores</em> entra más en profundidad en este patrón.</p>
+<p>Para permitir que la arquitectura de nuestra aplicación sea sencilla de modificar necesitaremos configurar dos adaptadores, uno para el <code>Proveedor</code> y otro para <code>conectar</code>. Nos enfrentaremos con los detalles específicos de Alt en ambos sitios.</p>
+<h3 class="header"><a class="header-anchor" href="#configurando-un-proveedor" id="configurando-un-proveedor"></a><span class="text">Configurando un <code>Proveedor</code></span><a class="header-anchor-select" href="#configurando-un-proveedor">#</a></h3>
+<p>Voy a utilizar una configuración especial que nos permitirá que nuestro <code>Proveedor</code> sea flexible. Lo envolveremos en un módulo que eligirá un <code>Proveedor</code> u otro dependiendo de nuestro entorno. Esto nos permitirá usar herramientas de desarrollo sin incluirlas en el pack de producción. Es necesario hacer algo de configuración extra pero merece la pena puesto que así tendremos un resultado más limpio.</p>
+<p>El punto de partida de esto está en el index del módulo. CommonJS escoje por defecto el fichero <strong>index.js</strong> del directorio cuando hacemos un import de ese directorio. No podemos dejarlo en mano de los módulos de ES6 dado que queremos un comportamiento dinámico.</p>
+<p>La idea es que nuestro componente reescriba el código dependiendo de la variable <code>process.env.NODE_ENV</code>, la cual servirá para seleccionar el módulo que queramos incluir. Aquí tenemos el punto de entrada de nuestro <code>Proveedor</code>:</p>
+<p><strong>app/components/Provider/index.js</strong></p>
+<pre><code class="lang-javascript"><span class="token keyword" >if</span><span class="token punctuation" >(</span>process<span class="token punctuation" >.</span>env<span class="token punctuation" >.</span>NODE_ENV <span class="token operator" >===</span> <span class="token string" >'production'</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+  module<span class="token punctuation" >.</span>exports <span class="token operator" >=</span> <span class="token function" >require</span><span class="token punctuation" >(</span><span class="token string" >'./Provider.prod'</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+<span class="token keyword" >else</span> <span class="token punctuation" >{</span>
+  module<span class="token punctuation" >.</span>exports <span class="token operator" >=</span> <span class="token function" >require</span><span class="token punctuation" >(</span><span class="token string" >'./Provider.dev'</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+</code></pre>
+<p>También necesitaremos los ficheros a los cuales está apuntando el fichero index. La primera parte es sencilla. Aquí necesitamos apuntar a nuestra instancia de Alt, conectarlo con un componente conocido como <code>AltContainer</code> y renderizar nuestra aplicación con él. Es aquí donde <code>props.children</code> entran en juego. Es la misma idea de antes.</p>
+<p><code>AltContainer</code> nos permitirá conectar los datos de nuestra aplicación a nivel de componente cuando implementemos <code>conectar</code>. Para ello, aquí tienes la implementación a nivel de producción:</p>
+<p><strong>app/components/Provider/Provider.prod.jsx</strong></p>
+<pre><code class="lang-javascript"><span class="token keyword" >import</span> React <span class="token keyword" >from</span> <span class="token string" >'react'</span><span class="token punctuation" >;</span>
+<span class="token keyword" >import</span> AltContainer <span class="token keyword" >from</span> <span class="token string" >'alt-container'</span><span class="token punctuation" >;</span>
+<span class="token keyword" >import</span> alt <span class="token keyword" >from</span> <span class="token string" >'../../libs/alt'</span><span class="token punctuation" >;</span>
+<span class="token keyword" >import</span> setup <span class="token keyword" >from</span> <span class="token string" >'./setup'</span><span class="token punctuation" >;</span>
+
+<span class="token function" >setup</span><span class="token punctuation" >(</span>alt<span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+<span class="token keyword" >export</span> <span class="token keyword" >default</span> <span class="token punctuation" >(</span><span class="token punctuation" >{</span>children<span class="token punctuation" >}</span><span class="token punctuation" >)</span> <span class="token operator" >=</span><span class="token operator" >></span>
+  <span class="token operator" >&lt;</span>AltContainer flux<span class="token operator" >=</span><span class="token punctuation" >{</span>alt<span class="token punctuation" >}</span><span class="token operator" >></span>
+    <span class="token punctuation" >{</span>children<span class="token punctuation" >}</span>
+  <span class="token operator" >&lt;</span><span class="token operator" >/</span>AltContainer<span class="token operator" >></span>
+</code></pre>
+<p>La implementación de <code>Proveedor</code> puede cambiar dependiendo del gestor de estados que estemos utilizando. Es posible que finalmente no haga nada, lo cual es aceptable. La idea es que tengamos un punto de extensión donde poder modificar nuestra aplicación si lo necesitamos.</p>
+<p>Todavía nos estamos dejando una parte, la relacionada con la configuración de desarrollo. Será como la de producción con la excepción de que esta vez podremos habilitar herramientas específicas de desarrollo. Es una buena oportunidad de mover la configuración de <em>react-addons-perf</em> aquí desde el <em>app/index.jsx</em> de la aplicación. También estoy habilitando <a href="https://github.com/goatslacker/alt-devtool">las herramientas de debug de Chrome para Alt</a>. Tendrás que instalar Chrome si quieres utilizarlas.</p>
+<p>Aquí tienes el código completo del proveedor de desarrollo:</p>
+<p><strong>app/components/Provider/Provider.dev.jsx</strong></p>
+<pre><code class="lang-javascript"><span class="token keyword" >import</span> React <span class="token keyword" >from</span> <span class="token string" >'react'</span><span class="token punctuation" >;</span>
+<span class="token keyword" >import</span> AltContainer <span class="token keyword" >from</span> <span class="token string" >'alt-container'</span><span class="token punctuation" >;</span>
+<span class="token keyword" >import</span> chromeDebug <span class="token keyword" >from</span> <span class="token string" >'alt-utils/lib/chromeDebug'</span><span class="token punctuation" >;</span>
+<span class="token keyword" >import</span> alt <span class="token keyword" >from</span> <span class="token string" >'../../libs/alt'</span><span class="token punctuation" >;</span>
+<span class="token keyword" >import</span> setup <span class="token keyword" >from</span> <span class="token string" >'./setup'</span><span class="token punctuation" >;</span>
+
+<span class="token function" >setup</span><span class="token punctuation" >(</span>alt<span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+<span class="token function" >chromeDebug</span><span class="token punctuation" >(</span>alt<span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+React<span class="token punctuation" >.</span>Perf <span class="token operator" >=</span> <span class="token function" >require</span><span class="token punctuation" >(</span><span class="token string" >'react-addons-perf'</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+<span class="token keyword" >export</span> <span class="token keyword" >default</span> <span class="token punctuation" >(</span><span class="token punctuation" >{</span>children<span class="token punctuation" >}</span><span class="token punctuation" >)</span> <span class="token operator" >=</span><span class="token operator" >></span>
+  <span class="token operator" >&lt;</span>AltContainer flux<span class="token operator" >=</span><span class="token punctuation" >{</span>alt<span class="token punctuation" >}</span><span class="token operator" >></span>
+    <span class="token punctuation" >{</span>children<span class="token punctuation" >}</span>
+  <span class="token operator" >&lt;</span><span class="token operator" >/</span>AltContainer<span class="token operator" >></span>
+</code></pre>
+<p>El módulo <code>setup</code> permite hacer toda la configuración relacionada con Alt que sea común tanto para el entorno de producción como para el entorno de desarrollo. De momento con que no haga nada es suficiente:</p>
+<p><strong>app/components/Provider/setup.js</strong></p>
+<pre><code class="lang-javascript"><span class="token keyword" >export</span> <span class="token keyword" >default</span> alt <span class="token operator" >=</span><span class="token operator" >></span> <span class="token punctuation" >{</span><span class="token punctuation" >}</span>
+</code></pre>
+<p>Todavía necesitamos conectar el <code>Proveedor</code> con nuestra aplicación modificando <em>app/index.jsx</em>. Haz los siguientes cambios:</p>
+<p><strong>app/index.jsx</strong></p>
+<pre><code class="lang-javascript"><span class="token keyword" >import</span> React <span class="token keyword" >from</span> <span class="token string" >'react'</span><span class="token punctuation" >;</span>
+<span class="token keyword" >import</span> ReactDOM <span class="token keyword" >from</span> <span class="token string" >'react-dom'</span><span class="token punctuation" >;</span>
+<span class="token keyword" >import</span> App <span class="token keyword" >from</span> <span class="token string" >'./components/App'</span><span class="token punctuation" >;</span>
+<div class="leanpub-insert">
+<span class="token keyword" >import</span> Provider <span class="token keyword" >from</span> <span class="token string" >'./components/Provider'</span><span class="token punctuation" >;</span>
+</div>
+
+<div class="leanpub-delete">
+<span class="token keyword" >if</span><span class="token punctuation" >(</span>process<span class="token punctuation" >.</span>env<span class="token punctuation" >.</span>NODE_ENV <span class="token operator" >!==</span> <span class="token string" >'production'</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+  React<span class="token punctuation" >.</span>Perf <span class="token operator" >=</span> <span class="token function" >require</span><span class="token punctuation" >(</span><span class="token string" >'react-addons-perf'</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+</div>
+
+ReactDOM<span class="token punctuation" >.</span><span class="token function" >render</span><span class="token punctuation" >(</span>
+<div class="leanpub-delete">
+  <span class="token operator" >&lt;</span>App <span class="token operator" >/</span><span class="token operator" >></span><span class="token punctuation" >,</span>
+</div>
+<div class="leanpub-insert">
+  <span class="token operator" >&lt;</span>Provider<span class="token operator" >></span><span class="token operator" >&lt;</span>App <span class="token operator" >/</span><span class="token operator" >></span><span class="token operator" >&lt;</span><span class="token operator" >/</span>Provider<span class="token operator" >></span><span class="token punctuation" >,</span>
+</div>
+  document<span class="token punctuation" >.</span><span class="token function" >getElementById</span><span class="token punctuation" >(</span><span class="token string" >'app'</span><span class="token punctuation" >)</span>
+<span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre>
+<p>Si miras la salida de Webpack verás que hay nuevas dependencias que se han instalado en el proyecto. Es lo que podemos esperar dados los cambios. El proceso puede tardar un rato en terminar, una vez que lo haga, refresca el navegador.</p>
+<p>Dado que no hemos cambiado la lógica de la aplicación de ninguna manera, todo debería tener el mismo aspecto de antes. Un buen paso con el que continuar es implementar un adaptador que conecte los datos con nuestras vistas.</p>
+<blockquote class="tip"><i class="icon-attention-circled"></i>Puedes encontrar una idea similar en <a href="https://www.npmjs.com/package/react-redux">react-redux</a>. MobX no necesita un <code>Proveedor</code> para nada. En este caso nuestra implementación únicamente devolverá <code>children</code>.</blockquote><h2 class="header"><a class="header-anchor" href="#entendiendo-conectar" id="entendiendo-conectar"></a><span class="text">Entendiendo <code>conectar</code></span><a class="header-anchor-select" href="#entendiendo-conectar">#</a></h2>
+<p>La idea de <code>conectar</code> es la de permitirnos incrustar datos y acciones concretas a componentes. Es así como podemos conectar los datos de los carriles y las acciones con <code>App</code>:</p>
+<pre><code class="lang-javascript">@<span class="token function" >connect</span><span class="token punctuation" >(</span><span class="token punctuation" >(</span><span class="token punctuation" >{</span>lanes<span class="token punctuation" >}</span><span class="token punctuation" >)</span> <span class="token operator" >=</span><span class="token operator" >></span> <span class="token punctuation" >(</span><span class="token punctuation" >{</span>lanes<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >,</span> <span class="token punctuation" >{</span>
+  laneActions<span class="token punctuation" >:</span> LaneActions
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span>
+<span class="token keyword" >export</span> <span class="token keyword" >default</span> <span class="token keyword" >class</span> <span class="token class-name" >App</span> <span class="token keyword" >extends</span> <span class="token class-name" >React<span class="token punctuation" >.</span>Component</span> <span class="token punctuation" >{</span>
+  <span class="token function" >render</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    <span class="token keyword" >return</span> <span class="token punctuation" >(</span>
+      <span class="token operator" >&lt;</span>div<span class="token operator" >></span>
+        <span class="token operator" >&lt;</span>button className<span class="token operator" >=</span><span class="token string" >"add-lane"</span> onClick<span class="token operator" >=</span><span class="token punctuation" >{</span><span class="token keyword" >this</span><span class="token punctuation" >.</span>addLane<span class="token punctuation" >}</span><span class="token operator" >></span><span class="token operator" >+</span><span class="token operator" >&lt;</span><span class="token operator" >/</span>button<span class="token operator" >></span>
+        <span class="token operator" >&lt;</span>Lanes lanes<span class="token operator" >=</span><span class="token punctuation" >{</span><span class="token keyword" >this</span><span class="token punctuation" >.</span>props<span class="token punctuation" >.</span>lanes<span class="token punctuation" >}</span> <span class="token operator" >/</span><span class="token operator" >></span>
+      <span class="token operator" >&lt;</span><span class="token operator" >/</span>div<span class="token operator" >></span>
+    <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+  <span class="token punctuation" >}</span>
+  addLane <span class="token operator" >=</span> <span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token operator" >=</span><span class="token operator" >></span> <span class="token punctuation" >{</span>
+    <span class="token keyword" >this</span><span class="token punctuation" >.</span>props<span class="token punctuation" >.</span>laneActions<span class="token punctuation" >.</span><span class="token function" >create</span><span class="token punctuation" >(</span><span class="token punctuation" >{</span>name<span class="token punctuation" >:</span> <span class="token string" >'New lane'</span><span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+  <span class="token punctuation" >}</span>
+<span class="token punctuation" >}</span>
+</code></pre>
+<p>Se puede escribir lo mismo sin decoradores. Esta es la sintáxis que utilizaremos en nuestra aplicación:</p>
+<pre><code class="lang-javascript"><span class="token keyword" >class</span> <span class="token class-name" >App</span> <span class="token keyword" >extends</span> <span class="token class-name" >React<span class="token punctuation" >.</span>Component</span> <span class="token punctuation" >{</span>
+  <span class="token punctuation" >.</span><span class="token punctuation" >.</span><span class="token punctuation" >.</span>
+<span class="token punctuation" >}</span>
+
+<span class="token keyword" >export</span> <span class="token keyword" >default</span> <span class="token function" >connect</span><span class="token punctuation" >(</span><span class="token punctuation" >(</span><span class="token punctuation" >{</span>lanes<span class="token punctuation" >}</span><span class="token punctuation" >)</span> <span class="token operator" >=</span><span class="token operator" >></span> <span class="token punctuation" >(</span><span class="token punctuation" >{</span>lanes<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >,</span> <span class="token punctuation" >{</span>
+  LaneActions
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >(</span>App<span class="token punctuation" >)</span>
+</code></pre>
+<p>En caso de que necesites aplicar varias funciones de alto nivel contra un componente, puedes utilizar una utilidad como <code>compose</code> y usarla con <code>compose(a, b)(App)</code>. Esto será igual a <code>a(b(App))</code> y se puede leer mejor.</p>
+<p>En los ejemplos mostrados <code>compose</code> es una función que devuelve una función. Por ello lo llamamos Función de Alto Nivel. Al final obtendremos un componente de ella. Este envoltorio nos permite manejar todo lo relacionado con la conexión con los datos.</p>
+<p>Podemos utilizar una función de alto nivel para anotar nuestros componentes y darles además otras propiedades especiales. Veremos esta idea cuando implementemos la funcionalidad de arrastrar y soltar. Los decoradores brindan una forma sencilla de incluir estos tipos de anotaciones. El apéndice <em>Entendiendo los Decoradores</em> profundiza más en este asunto.</p>
+<p>Ahora que entendemos básicamente cómo debería funcionar <code>conectar</code> podemos implementarlo.</p>
+<h3 class="header"><a class="header-anchor" href="#configurando-conectar" id="configurando-conectar"></a><span class="text">Configurando <code>conectar</code></span><a class="header-anchor-select" href="#configurando-conectar">#</a></h3>
+<p>Voy a utilizar un <code>conectar</code> personalizado para remarcar un par de ideas clave. La implementación no es óptima en terminos de rendimiento pero será suficiente para esta aplicación.</p>
+<p>Es posible optimizar el rendimiento con un trabajo posterior. Puedes utilizar uno de los conectores comunes en lugar de desarrollar el tuyo propio. He aquí una razón por la cual tener el control de <code>Proveedor</code> y <code>conectar</code> es útil, permite personalizar más adelante y entender cómo funciona el proceso.</p>
+<p><strong>app/libs/connect.jsx</strong></p>
+<pre><code class="lang-javascript"><span class="token keyword" >import</span> React <span class="token keyword" >from</span> <span class="token string" >'react'</span><span class="token punctuation" >;</span>
+
+<span class="token keyword" >export</span> <span class="token keyword" >default</span> <span class="token punctuation" >(</span>state<span class="token punctuation" >,</span> actions<span class="token punctuation" >)</span> <span class="token operator" >=</span><span class="token operator" >></span> <span class="token punctuation" >{</span>
+  <span class="token keyword" >if</span><span class="token punctuation" >(</span><span class="token keyword" >typeof</span> state <span class="token operator" >===</span> <span class="token string" >'function'</span> <span class="token operator" >||</span>
+    <span class="token punctuation" >(</span><span class="token keyword" >typeof</span> state <span class="token operator" >===</span> <span class="token string" >'object'</span> <span class="token operator" >&amp;&amp;</span> Object<span class="token punctuation" >.</span><span class="token function" >keys</span><span class="token punctuation" >(</span>state<span class="token punctuation" >)</span><span class="token punctuation" >.</span>length<span class="token punctuation" >)</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    <span class="token keyword" >return</span> target <span class="token operator" >=</span><span class="token operator" >></span> <span class="token function" >connect</span><span class="token punctuation" >(</span>state<span class="token punctuation" >,</span> actions<span class="token punctuation" >,</span> target<span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+  <span class="token punctuation" >}</span>
+
+  <span class="token keyword" >return</span> target <span class="token operator" >=</span><span class="token operator" >></span> props <span class="token operator" >=</span><span class="token operator" >></span> <span class="token punctuation" >(</span>
+    <span class="token operator" >&lt;</span>target <span class="token punctuation" >{</span><span class="token punctuation" >.</span><span class="token punctuation" >.</span><span class="token punctuation" >.</span>Object<span class="token punctuation" >.</span><span class="token function" >assign</span><span class="token punctuation" >(</span><span class="token punctuation" >{</span><span class="token punctuation" >}</span><span class="token punctuation" >,</span> props<span class="token punctuation" >,</span> actions<span class="token punctuation" >)</span><span class="token punctuation" >}</span> <span class="token operator" >/</span><span class="token operator" >></span>
+  <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+
+<span class="token comment" spellcheck="true">// Conectar con Alt a través del contexto. Esto no ha sido optimizado</span>
+<span class="token comment" spellcheck="true">// para nada. Si Alt almacena los cambios se forzará el renderizado.</span>
+<span class="token comment" spellcheck="true">//</span>
+<span class="token comment" spellcheck="true">// Ver *AltContainer* y *connect-alt* para encontrar soluciones óptimas</span>
+<span class="token keyword" >function</span> <span class="token function" >connect</span><span class="token punctuation" >(</span>state <span class="token operator" >=</span> <span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token operator" >=</span><span class="token operator" >></span> <span class="token punctuation" >{</span><span class="token punctuation" >}</span><span class="token punctuation" >,</span> actions <span class="token operator" >=</span> <span class="token punctuation" >{</span><span class="token punctuation" >}</span><span class="token punctuation" >,</span> target<span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+  <span class="token keyword" >class</span> <span class="token class-name" >Connect</span> <span class="token keyword" >extends</span> <span class="token class-name" >React<span class="token punctuation" >.</span>Component</span> <span class="token punctuation" >{</span>
+    <span class="token function" >componentDidMount</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+      <span class="token keyword" >const</span> <span class="token punctuation" >{</span>flux<span class="token punctuation" >}</span> <span class="token operator" >=</span> <span class="token keyword" >this</span><span class="token punctuation" >.</span>context<span class="token punctuation" >;</span>
+
+      flux<span class="token punctuation" >.</span>FinalStore<span class="token punctuation" >.</span><span class="token function" >listen</span><span class="token punctuation" >(</span><span class="token keyword" >this</span><span class="token punctuation" >.</span>handleChange<span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span>
+    <span class="token function" >componentWillUnmount</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+      <span class="token keyword" >const</span> <span class="token punctuation" >{</span>flux<span class="token punctuation" >}</span> <span class="token operator" >=</span> <span class="token keyword" >this</span><span class="token punctuation" >.</span>context<span class="token punctuation" >;</span>
+
+      flux<span class="token punctuation" >.</span>FinalStore<span class="token punctuation" >.</span><span class="token function" >unlisten</span><span class="token punctuation" >(</span><span class="token keyword" >this</span><span class="token punctuation" >.</span>handleChange<span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span>
+    <span class="token function" >render</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+      <span class="token keyword" >const</span> <span class="token punctuation" >{</span>flux<span class="token punctuation" >}</span> <span class="token operator" >=</span> <span class="token keyword" >this</span><span class="token punctuation" >.</span>context<span class="token punctuation" >;</span>
+      <span class="token keyword" >const</span> stores <span class="token operator" >=</span> flux<span class="token punctuation" >.</span>stores<span class="token punctuation" >;</span>
+      <span class="token keyword" >const</span> composedStores <span class="token operator" >=</span> <span class="token function" >composeStores</span><span class="token punctuation" >(</span>stores<span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+      <span class="token keyword" >return</span> React<span class="token punctuation" >.</span><span class="token function" >createElement</span><span class="token punctuation" >(</span>target<span class="token punctuation" >,</span>
+        <span class="token punctuation" >{</span><span class="token punctuation" >.</span><span class="token punctuation" >.</span><span class="token punctuation" >.</span>Object<span class="token punctuation" >.</span><span class="token function" >assign</span><span class="token punctuation" >(</span>
+          <span class="token punctuation" >{</span><span class="token punctuation" >}</span><span class="token punctuation" >,</span> <span class="token keyword" >this</span><span class="token punctuation" >.</span>props<span class="token punctuation" >,</span> <span class="token function" >state</span><span class="token punctuation" >(</span>composedStores<span class="token punctuation" >)</span><span class="token punctuation" >,</span> actions
+        <span class="token punctuation" >)</span><span class="token punctuation" >}</span>
+      <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span>
+    handleChange <span class="token operator" >=</span> <span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token operator" >=</span><span class="token operator" >></span> <span class="token punctuation" >{</span>
+      <span class="token keyword" >this</span><span class="token punctuation" >.</span><span class="token function" >forceUpdate</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span>
+  <span class="token punctuation" >}</span>
+  Connect<span class="token punctuation" >.</span>contextTypes <span class="token operator" >=</span> <span class="token punctuation" >{</span>
+    flux<span class="token punctuation" >:</span> React<span class="token punctuation" >.</span>PropTypes<span class="token punctuation" >.</span>object<span class="token punctuation" >.</span>isRequired
+  <span class="token punctuation" >}</span>
+
+  <span class="token keyword" >return</span> Connect<span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+
+<span class="token comment" spellcheck="true">// Convierte {store: &lt;AltStore>} en {&lt;store>: store.getState()}</span>
+<span class="token keyword" >function</span> <span class="token function" >composeStores</span><span class="token punctuation" >(</span>stores<span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+  <span class="token keyword" >let</span> ret <span class="token operator" >=</span> <span class="token punctuation" >{</span><span class="token punctuation" >}</span><span class="token punctuation" >;</span>
+
+  Object<span class="token punctuation" >.</span><span class="token function" >keys</span><span class="token punctuation" >(</span>stores<span class="token punctuation" >)</span><span class="token punctuation" >.</span><span class="token function" >forEach</span><span class="token punctuation" >(</span>k <span class="token operator" >=</span><span class="token operator" >></span> <span class="token punctuation" >{</span>
+    <span class="token keyword" >const</span> store <span class="token operator" >=</span> stores<span class="token punctuation" >[</span>k<span class="token punctuation" >]</span><span class="token punctuation" >;</span>
+
+    <span class="token comment" spellcheck="true">// Combina el estado del almacén</span>
+    ret <span class="token operator" >=</span> Object<span class="token punctuation" >.</span><span class="token function" >assign</span><span class="token punctuation" >(</span><span class="token punctuation" >{</span><span class="token punctuation" >}</span><span class="token punctuation" >,</span> ret<span class="token punctuation" >,</span> store<span class="token punctuation" >.</span><span class="token function" >getState</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+  <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+  <span class="token keyword" >return</span> ret<span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+</code></pre>
+<p>Dado que <code>flux.FinalStore</code> no está disponible por defecto, necesitamos cambiar nuestra instacia de Alt para que la contenga. Tras ello podremos acceder a ella donde la necesitemos:</p>
+<p><strong>app/libs/alt.js</strong></p>
+<pre><code class="lang-javascript"><span class="token keyword" >import</span> Alt <span class="token keyword" >from</span> <span class="token string" >'alt'</span><span class="token punctuation" >;</span>
+<div class="leanpub-insert">
+<span class="token keyword" >import</span> makeFinalStore <span class="token keyword" >from</span> <span class="token string" >'alt-utils/lib/makeFinalStore'</span><span class="token punctuation" >;</span>
+</div>
+
+<div class="leanpub-delete">
+<span class="token keyword" >const</span> alt <span class="token operator" >=</span> <span class="token keyword" >new</span> <span class="token class-name" >Alt</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+<span class="token keyword" >export</span> <span class="token keyword" >default</span> alt<span class="token punctuation" >;</span>
+</div>
+<div class="leanpub-insert">
+<span class="token keyword" >class</span> <span class="token class-name" >Flux</span> <span class="token keyword" >extends</span> <span class="token class-name" >Alt</span> <span class="token punctuation" >{</span>
+  <span class="token function" >constructor</span><span class="token punctuation" >(</span>config<span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    <span class="token keyword" >super</span><span class="token punctuation" >(</span>config<span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+    <span class="token keyword" >this</span><span class="token punctuation" >.</span>FinalStore <span class="token operator" >=</span> <span class="token function" >makeFinalStore</span><span class="token punctuation" >(</span><span class="token keyword" >this</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+  <span class="token punctuation" >}</span>
+<span class="token punctuation" >}</span>
+
+<span class="token keyword" >const</span> flux <span class="token operator" >=</span> <span class="token keyword" >new</span> <span class="token class-name" >Flux</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+<span class="token keyword" >export</span> <span class="token keyword" >default</span> flux<span class="token punctuation" >;</span>
+</div>
+</code></pre>
+<p>Podemos incrustar algunos datos de prueba en <code>App</code> y renderizarlos para ver <code>conectar</code> en acción. Haz los cambios siguientes para enviar datos a <code>App</code> y, después, mira cómo se muestran en la interfaz de usuario:</p>
+<p><strong>app/components/App.jsx</strong></p>
+<pre><code class="lang-javascript"><span class="token keyword" >import</span> React <span class="token keyword" >from</span> <span class="token string" >'react'</span><span class="token punctuation" >;</span>
+<span class="token keyword" >import</span> uuid <span class="token keyword" >from</span> <span class="token string" >'uuid'</span><span class="token punctuation" >;</span>
+<span class="token keyword" >import</span> Notes <span class="token keyword" >from</span> <span class="token string" >'./Notes'</span><span class="token punctuation" >;</span>
+<div class="leanpub-insert">
+<span class="token keyword" >import</span> connect <span class="token keyword" >from</span> <span class="token string" >'../libs/connect'</span><span class="token punctuation" >;</span>
+</div>
+
+<div class="leanpub-delete">
+<span class="token keyword" >export</span> <span class="token keyword" >default</span> <span class="token keyword" >class</span> <span class="token class-name" >App</span> <span class="token keyword" >extends</span> <span class="token class-name" >React<span class="token punctuation" >.</span>Component</span> <span class="token punctuation" >{</span>
+</div>
+<div class="leanpub-insert">
+<span class="token keyword" >class</span> <span class="token class-name" >App</span> <span class="token keyword" >extends</span> <span class="token class-name" >React<span class="token punctuation" >.</span>Component</span> <span class="token punctuation" >{</span>
+</div>
+  <span class="token function" >constructor</span><span class="token punctuation" >(</span>props<span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    <span class="token punctuation" >.</span><span class="token punctuation" >.</span><span class="token punctuation" >.</span>
+  <span class="token punctuation" >}</span>
+  <span class="token function" >render</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    <span class="token keyword" >const</span> <span class="token punctuation" >{</span>notes<span class="token punctuation" >}</span> <span class="token operator" >=</span> <span class="token keyword" >this</span><span class="token punctuation" >.</span>state<span class="token punctuation" >;</span>
+
+    <span class="token keyword" >return</span> <span class="token punctuation" >(</span>
+      <span class="token operator" >&lt;</span>div<span class="token operator" >></span>
+<div class="leanpub-insert">
+        <span class="token punctuation" >{</span><span class="token keyword" >this</span><span class="token punctuation" >.</span>props<span class="token punctuation" >.</span>test<span class="token punctuation" >}</span>
+</div>
+        <span class="token operator" >&lt;</span>button className<span class="token operator" >=</span><span class="token string" >"add-note"</span> onClick<span class="token operator" >=</span><span class="token punctuation" >{</span><span class="token keyword" >this</span><span class="token punctuation" >.</span>addNote<span class="token punctuation" >}</span><span class="token operator" >></span><span class="token operator" >+</span><span class="token operator" >&lt;</span><span class="token operator" >/</span>button<span class="token operator" >></span>
+        <span class="token operator" >&lt;</span>Notes
+          notes<span class="token operator" >=</span><span class="token punctuation" >{</span>notes<span class="token punctuation" >}</span>
+          onNoteClick<span class="token operator" >=</span><span class="token punctuation" >{</span><span class="token keyword" >this</span><span class="token punctuation" >.</span>activateNoteEdit<span class="token punctuation" >}</span>
+          onEdit<span class="token operator" >=</span><span class="token punctuation" >{</span><span class="token keyword" >this</span><span class="token punctuation" >.</span>editNote<span class="token punctuation" >}</span>
+          onDelete<span class="token operator" >=</span><span class="token punctuation" >{</span><span class="token keyword" >this</span><span class="token punctuation" >.</span>deleteNote<span class="token punctuation" >}</span>
+          <span class="token operator" >/</span><span class="token operator" >></span>
+      <span class="token operator" >&lt;</span><span class="token operator" >/</span>div<span class="token operator" >></span>
+    <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+  <span class="token punctuation" >}</span>
+  <span class="token punctuation" >.</span><span class="token punctuation" >.</span><span class="token punctuation" >.</span>
+<span class="token punctuation" >}</span>
+
+<div class="leanpub-insert">
+<span class="token keyword" >export</span> <span class="token keyword" >default</span> <span class="token function" >connect</span><span class="token punctuation" >(</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token operator" >=</span><span class="token operator" >></span> <span class="token punctuation" >(</span><span class="token punctuation" >{</span>
+  test<span class="token punctuation" >:</span> <span class="token string" >'test'</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >)</span><span class="token punctuation" >(</span>App<span class="token punctuation" >)</span>
+</div>
+</code></pre>
+<p>Refresca el navegador para mostrar el texto. Deberías poder ver ahora el texto que hemos conectado con <code>App</code>.</p>
+<h2 class="header"><a class="header-anchor" href="#usando-el-dispatcher-en-alt" id="usando-el-dispatcher-en-alt"></a><span class="text">Usando el Dispatcher en Alt</span><a class="header-anchor-select" href="#usando-el-dispatcher-en-alt">#</a></h2>
+<p>Aunque hayamos llegado lejos sin utilizar el dispatcher de Flux, puede ser útil que sepamos algo sobre ello. Alt facilita dos formas de utilizarlo. Si quieres guardar una traza de todo lo que pase por la instancia de <code>alt</code> puedes utilizar un trozo de código como <code>alt.dispatcher.register(console.log.bind(console))</code>. También puedes lanzar <code>this.dispatcher.register(...)</code> en un constructor del almacén. Estos mecanismos te permitirán generar trazas de forma efectiva.</p>
+<p>Otros gestores de estado ofrecen puntos de enganche similares. Es posible interceptar el flujo de datos de muchas formas e incluso crear una lógica personalizada encima de ello.</p>
+<h2 class="header"><a class="header-anchor" href="#conclusi-n" id="conclusi-n"></a><span class="text">Conclusión</span><a class="header-anchor-select" href="#conclusi-n">#</a></h2>
+<p>En este capítulo hemos debatido la idea básica de qué es la arquitectura Flux y hemos comenzado a migrar nuestra aplicación a ella. Hemos dejado todo lo relacionado con la gestión del estado tras un adaptador para poder modificar el código sin tener que cambiar nada relacionado con la vista. El paso siquiente será definir un almacén para nuestra aplicación y definir las acciones que lo puedan manipular.</p>
+</div><div class="social-links"><blockquote class="tip">If you enjoyed this page, consider subscribing to the mailing list below or following <a href="https://twitter.com/survivejs">@survivejs</a> for occasional updates. There is also <a href="/atom.xml">RSS</a> available for old beards (no pun intended).</blockquote><h2 class="subscribe-header">Subscribe to the mailing list</h2><form action="//jster.us7.list-manage.com/subscribe/post?u=ed40c0084a0c5ba31b3365d65&amp;amp;id=b853b8e786" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate social-form" target="_blank" novalidate=""><div id="mc_embed_signup_scroll"><div class="mc-field-group social-input-container"><input type="email" placeholder="Email" value="" name="EMAIL" class="required email" id="mce-EMAIL"/></div><div style="display:none;position:absolute;left:-5000px;"><input type="text" name="b_ed40c0084a0c5ba31b3365d65_b853b8e786" tabindex="-1" value=""/></div><div class="social-subscribe-container"><input type="submit" class="btn button social-subscribe" style="margin-top:1em;margin-bottom:1em;line-height:2em;" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"/></div></div></form></div><div class="new-prevnext"><div class="new-prevnext__prev"><div class="new-prevnext__bg" style="background-image:url(/d526d6827c577bb4c17f6134fb4a4c27.jpg);"></div><span class="new-prevnext__info">Capítulo anterior</span><a class="new-prevnext__link" href="/react/implementing-kanban/">Implementando Kanban</a></div><div class="new-prevnext__next"><div class="new-prevnext__bg" style="background-image:url(/d25cd3712ccad030c912e13589e442a3.jpg);"></div><span class="new-prevnext__info">Pŕoximo capítulo</span><a class="new-prevnext__link" href="/react/implementing-kanban/implementing-store-and-actions/">Implementando NoteStore y NoteActions</a></div></div><blockquote class="tip"><p>Puedes encontrar este libro en <a href="https://leanpub.com/survivejs-react">Leanpub</a>. Comprando este libro permitirás el desarrollo de más contenido.</p></blockquote><div id="disqus_thread"></div></div></div><div><a class="next-page" title="Implementando NoteStore y NoteActions" href="/react/implementing-kanban/implementing-store-and-actions/"><i class="icon-right-open"></i></a><a class="previous-page" title="Implementando Kanban" href="/react/implementing-kanban/"><i class="icon-left-open"></i></a></div><script type="text/javascript">var disqus_shortname = 'survivejs';(function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script></div><div class="nav__wrapper"><input type="checkbox" class="nav__toggle" id="nav__toggle"/><label class="nav__toggle-label" for="nav__toggle"></label><nav class="nav"><div class="nav__link"><a href="/">Home</a></div><div class="nav__link"><a href="/blog/">Leer el blog</a></div><div class="nav__link"><a href="/training/">Formación</a></div><div class="nav__link"><a href="https://leanpub.com/survivejs-react">Compra el ebook</a></div><div class="nav__link"><a href="/"></a></div><div class="nav__link"><a href="https://twitter.com/survivejs">@survivejs</a></div></nav></div><a href="https://github.com/survivejs/site" class="github-corner"><svg width="80" height="80" viewBox="0 0 250 250" style="position:absolute;top:0;fill:#000;right:0;"><path class="octo-banner" d="M0 0l115 115h15l12 27 108 108V0z" fill="#fff"></path><path class="octo-arm" d="M128 109c-15-9-9-19-9-19 3-7 2-11 2-11-1-7 3-2 3-2 4 5 2 11 2 11-3 10 5 15 9 16" style="-webkit-transform-origin:130px 106px;transform-origin:130px 106px;"></path><path class="octo-body" d="M115 115s4 2 5 0l14-14c3-2 6-3 8-3-8-11-15-24 2-41 5-5 10-7 16-7 1-2 3-7 12-11 0 0 5 3 7 16 4 2 8 5 12 9s7 8 9 12c14 3 17 7 17 7-4 8-9 11-11 11 0 6-2 11-7 16-16 16-30 10-41 2 0 3-1 7-5 11l-12 11c-1 1 1 5 1 5z"></path></svg></a><footer><div class="footer-wrapper"><div class="footer-content-wrapper"><div class="footer-social"><h3>Social</h3><ul><li><a href="https://twitter.com/survivejs" target="_blank" rel="noopener noreferrer">@survivejs</a></li><li><a href="http://eepurl.com/bth1v5" target="_blank" rel="noopener noreferrer">Mailing List</a></li><li><a href="https://gitter.im/survivejs" target="_blank" rel="noopener noreferrer">Gitter Chat</a></li><li><a href="https://github.com/survivejs" target="_blank" rel="noopener noreferrer">GitHub</a></li><li><a href="https://presentations.survivejs.com" target="_blank" rel="noopener noreferrer">Presentations</a></li><li><a href="http://goo.gl/forms/OWdGIOdHm9" target="_blank" rel="noopener noreferrer">Contact</a></li><li><a href="https://github.com/survivejs/ama/issues" target="_blank" rel="noopener noreferrer">Ask Me Anything</a></li></ul></div></div></div></footer><div><div class="gitter-open-chat-button">Need help?</div><script type="text/javascript">
+          ((window.gitter = {}).chat = {}).options = {
+            showChatByDefault: false,
+            activationElement: '.gitter-open-chat-button',
+            room: 'survivejs/react'
+          };
+        </script><script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async="" defer=""></script></div></div>
+
+    
+  </body>
+</html>

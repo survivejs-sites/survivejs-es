@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta
+      name='viewport'
+      content='width=device-width, initial-scale=1, maximum-scale=1, minimal-ui' />
+    <meta
+      name='description'
+      content=SurviveJS />
+    <meta
+      name='keywords'
+      content= />
+    <title>SurviveJS</title>
+    
+    <link rel='icon' type='image/png' href='/assets/favicon.png'></link>
+
+    
+      <link href="/site.17316cb466d661c9c3c0.css" rel="stylesheet">
+    
+  </head>
+  <body>
+    <div><div class="chapter__wrapper"><div class="header-image" style="background-image:url(/b55f9451c82211376b2cd6620733e943.jpg);"></div><h1 class="post__heading">Aplicando Estilo a React</h1><div class="header-extra"><a href="https://www.flickr.com/photos/82405581@N00/3173065446">Andrea Williams (CC BY-NC-ND)</a></div><div class="toc-nav__wrapper"><h4 class="search-nav--header">Search</h4><input id="search"/><h4 class="toc-nav--header">Índice</h4><ul class="toc-nav"><li class="toc-intro"><a class="toc-nav__link intro" href="/react/introduction/">Introducción</a></li><li class="toc-part"><a class="toc-nav__link part" href="/react/getting-started/">Comenzando</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/introduction-to-react/">Introducción a React</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/setting-up-the-project/">Configurando el Proyecto</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/implementing-notes/">Implementando una Aplicación de Notas</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/deleting-notes/">Borrado de Notas</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/understanding-react-components/">Comprendiendo los Componentes de React</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/editing-notes/">Edición de Notas</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/styling-notes/">Dando Estilo a la Aplicación de Notas</a></li><li class="toc-part"><a class="toc-nav__link part" href="/react/implementing-kanban/">Implementando Kanban</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/implementing-kanban/react-and-flux/">React y Flux</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/implementing-kanban/implementing-store-and-actions/">Implementando NoteStore y NoteActions</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/implementing-kanban/implementing-persistency/">Implementando Persistencia en localStorage</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/implementing-kanban/handling-data-dependencies/">Gestionado Dependencias de Datos</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/implementing-kanban/editing-lanes/">Editando los Carriles</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/implementing-kanban/drag-and-drop/">Implementado Arrastrar y Soltar</a></li><li class="toc-part"><a class="toc-nav__link part" href="/react/advanced-techniques/">Técnicas Avanzadas</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/advanced-techniques/testing-react/">Probando React</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/advanced-techniques/typing-with-react/">Tipado con React</a></li><li class="toc-chapter"><span class="toc-nav__link toc-nav__link--current chapter">Aplicando Estilo a React</span></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/advanced-techniques/structuring-react-projects/">Estructurando Proyectos con React</a></li><li class="toc-part"><a class="toc-nav__link part" href="/react/appendices/">Apéndices</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/appendices/language-features/">Características del Lenguaje</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/appendices/understanding-decorators/">Entendiendo los Decoradores</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/appendices/troubleshooting/">Resolución de Problemas</a></li></ul></div><div class="chapter"><div class="post__content"><div class="chapter-content"><p>Históricamente las páginas web se han dividido en marcado HTML, estilo (CSS) y lógica (JavaScript). Gracias a React y a otras aproximaciones similares hemos empezado a cuestionar esta división. Todavía queremos separar los ámbitos de alguna manera, pero la forma de dividirlo parte de ejes diferentes.</p>
+<p>Este cambio de mentalidad nos ha llevado a nuevas formas de pensar sobre cómo aplicar estilos. Con React todavía estámos tratando de encontrar la mejor manera, aunque algunos patrones iniciales hayan surgido ya. Como resultado, resulta difícil dar una recomendación definitiva en este momento. En su lugar, voy a mostrar algunas aproximaciones para que las conozcas y puedas elegir la que más te convenga.</p>
+<h2 class="header"><a class="header-anchor" href="#estilo-a-la-vieja-usanza" id="estilo-a-la-vieja-usanza"></a><span class="text">Estilo a la Vieja Usanza</span><a class="header-anchor-select" href="#estilo-a-la-vieja-usanza">#</a></h2>
+<p>La aproximación a la vieja usanza consiste en dejar algunos <em>ids</em> y <em>classes</em> por ahí, configurar reglas en el CSS, y esperar lo mejor. En CSS todo tiene, por defecto, ámbito global. Las definiciones anidadas (por ejemplo, <code>.main .sidebar .button</code>) crean una lógica implícita en los estilos. Ambas características incrementan la complejidad a medida que el proyecto va creciendo. Esta aproximación puede ser aceptable al comenzar, pero a medida que vayas desarrollando, irás queriendo migrar a otra solución.</p>
+<h2 class="header"><a class="header-anchor" href="#metodolog-as-css" id="metodolog-as-css"></a><span class="text">Metodologías CSS</span><a class="header-anchor-select" href="#metodolog-as-css">#</a></h2>
+<p>¿Qué ocurre cuando tu aplicación comienza a crecer y se añaden nuevos conceptos? Los selectores CSS son globales. El problema se vuelve incluso peor si tienes que lidiar con el orden el que se cargan. Si hay varios selectores iguales, la última declaración es la que gana, a menos que haya un <code>!important</code> en algún lugar. Se vuelve complejo muy rápidamente.</p>
+<p>Podemos luchar contra este problema haciendo que los selectores sean más específicos, usando reglas de nombrado, etc. Esto simplemente retrasa lo inevitable. Ya que han sido muchas las personas que han combatido contra este problema durante mucho tiempo, algunas metodologías han emergido.</p>
+<p>Particularmente, <a href="http://oocss.org/">OOCSS</a> (Object-Oriented CSS), <a href="https://smacss.com/">SMACSS</a> (Scalable and Modular Approach for CSS), y <a href="https://en.bem.info/method/">BEM</a> (Block Element Modifier) son bien conocidas. Cada una de ellas soluciona los problemas de CSS a su propia manera.</p>
+<h3 class="header"><a class="header-anchor" href="#bem" id="bem"></a><span class="text">BEM</span><a class="header-anchor-select" href="#bem">#</a></h3>
+<p>El origen de BEM reside en Yandex. La meta de BEM es la de permitir que existan componentes reutilizables y compartir código. Sitios como <a href="http://getbem.com/">Get BEM</a> te pueden ayudar a entender la metodología con más detalle.</p>
+<p>El mantener nombres de clases largos tal y como BEM requiere puede ser duro. Es por ello que han aparecido varias librerías que pueden hacerlo más sencillo. Para React, algunas de ellas son <a href="https://www.npmjs.com/package/react-bem-helper">react-bem-helper</a>, <a href="https://www.npmjs.com/package/react-bem-render">react-bem-render</a>, y <a href="https://www.npmjs.com/package/bem-react">bem-react</a>.</p>
+<p>Ten en cuenta que <a href="https://www.npmjs.com/package/postcss-bem-linter">postcss-bem-linter</a> te permite analizar tu CSS para ver si cumple con BEM.</p>
+<h3 class="header"><a class="header-anchor" href="#oocss-y-smacss" id="oocss-y-smacss"></a><span class="text">OOCSS y SMACSS</span><a class="header-anchor-select" href="#oocss-y-smacss">#</a></h3>
+<p>Al igual que BEM, tanto OOCSS como SMACSS tienen sus propias convenciones y metodologías. En el momento de escribir esto, no existen librerías específicas para React de OOCSS o SMACSS.</p>
+<h3 class="header"><a class="header-anchor" href="#pros-y-contras" id="pros-y-contras"></a><span class="text">Pros y Contras</span><a class="header-anchor-select" href="#pros-y-contras">#</a></h3>
+<p>El beneficio principal de adoptar una metodología es que estructura tu proyecto. Las metodologías resuelven algunos problemas básicos y te ayudan a desarrollar buen software a largo plazo. Las convenciones que traen a un proyecto ayudan al mantenimiento del mismo y son menos propensas a provocar un desastre.</p>
+<p>Por el contrario, una vez adoptas una, te será muy difícil migrar a otra.</p>
+<p>Las metodologías también traen sus propias particularidades (p.e. esquemas de nombrado complejos). Esto puede hacer que algunas cosas se vuelvan más complicadas de lo que deberían ser. No necesariamente arreglan los mayores problemas sino que, a veces, simplemente los rodean.</p>
+<h2 class="header"><a class="header-anchor" href="#procesadores-css" id="procesadores-css"></a><span class="text">Procesadores CSS</span><a class="header-anchor-select" href="#procesadores-css">#</a></h2>
+<p><img src="/85419da6ac47a50293cc912f6b0c0d14.png" alt="Procesadores CSS" class="" width="" height="" /></p>
+<p>El CSS plano carece de ciertas funcionalidades que podrían hacer que el mantenimiento fuese más sencillo. Considera algo básico como variables, anidamientos, mixins, operaciones matemáticas o funciones relacionadas con colores. Estaría bien poder olvidar los prefijos específicos para cada navegador. Son pequeñas cosas con las que te encuentras pronto y que hacen que sea molesto generar CSS plano.</p>
+<p>A veces puede que veas términos como <em>preprocesador</em> o <em>postprocesador</em>. <a href="https://medium.com/@ddprrt/deconfusing-pre-and-post-processing-d68e3bd078a3">Stefan Baumgartner</a> llama a estas herramientas simplemente <em>procesadores de CSS</em>. La imagen anterior basada en el trabajo de Stefan muestra el asunto. Las herramientas operan tanto a nivel de autor como de optimización. Con nivel de autor nos referimos a que hace que sea fácil escribir CSS. Las características de optimización hacen que el CSS plano generado esté optimizado para los navegadores.</p>
+<p>Lo interesante aquí es que puede que quieras utilizar varios procesadores de CSS. La imagen de Stefan ilustra cómo puedes escribir CSS fácilmente con Sass y aún así optimizarlo con PostCSS. Por ejemplo, puede hacer <em>autoprefix</em> de tu código CSS para que no te tengas que preocupar de poner prefijos por navegador nunca más.</p>
+<p>Puedes usar procesadores comunes como <a href="http://lesscss.org/">Less</a>, <a href="http://sass-lang.com/">Sass</a>, <a href="https://learnboost.github.io/stylus/">Stylus</a>, o <a href="http://postcss.org/">PostCSS</a> con React.</p>
+<p><a href="https://cssnext.github.io/">cssnext</a> es un plugin de PostCSS que te permite experimentar el futuro ahora. Hay algunas restricciones , pero puede merecer la pena probarlo. La ventaja de PostCSS y cssnext es que estarás programando literalmente en el futuro, A medida que los navegadores mejoren y adopten los estándares no tendrás que preocuparte de hacer migraciones.</p>
+<h3 class="header"><a class="header-anchor" href="#pros-y-contras" id="pros-y-contras"></a><span class="text">Pros y Contras</span><a class="header-anchor-select" href="#pros-y-contras">#</a></h3>
+<p>Comparado con CSS plano, los procesadores dejan muchas cosa encima de la mesa. Lidian con ciertas molestias (p.e. el autoprefixing) a medida que mejoran tu productividad. PostCSS es más granular por definición y te permite utilizar únicamente las características que necesitas. Los procesadores como Less o Sass son muy útiles. Ambas aproximaciones pueden ser utilizadas juntas, de tal modo que puedes apoyarte en Sass y aplicar algunos plugins de PostCSS cuando sea necesario.</p>
+<p>En nuestro projecto podemos aprovecharnos de cssnext incluso si no hemos hecho cambios en nuestro CSS. Gracias al autoprefixing, las esquinas redondeadas de los carriles se verán mejor en navegadores antiguos. Es más, podemos parametrizar estos estilos gracias al uso de parámetros.</p>
+<h2 class="header"><a class="header-anchor" href="#aproximaciones-basadas-en-react" id="aproximaciones-basadas-en-react"></a><span class="text">Aproximaciones Basadas en React</span><a class="header-anchor-select" href="#aproximaciones-basadas-en-react">#</a></h2>
+<p>Existen algunas alternativas extra con React. ¿Qué ocurre si todo lo que habiamos ideado sobre estilos era erróneo?. CSS es poderoso, pero se puede volver un lío inmantenible sin algo de disciplina. ¿Dónde podemos trazar la separación entre CSS y JavaScript?</p>
+<p>Hay varias aproximaciones para React que nos permiten aplicar estilos a nivel de componente. Puede parecer un sacrilegio, pero React, rebelde como es, nos puede llevar allí.</p>
+<h3 class="header"><a class="header-anchor" href="#estilos-en-l-nea-al-rescate" id="estilos-en-l-nea-al-rescate"></a><span class="text">Estilos en Línea al Rescate</span><a class="header-anchor-select" href="#estilos-en-l-nea-al-rescate">#</a></h3>
+<p>Irónicamente, la forma en la que las soluciones que utilizan React resuelven el problema de los estilos es a través de estilos en línea. Deshacerse de los estilos en línea fue una de las principales razones para el uso de múltipls archivos CSS separados, pero ahora han vuelto. Esto significa que, en vez de tener algo como esto:</p>
+<pre><code class="lang-javascript"><span class="token function" >render</span><span class="token punctuation" >(</span>props<span class="token punctuation" >,</span> context<span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+  <span class="token keyword" >const</span> notes <span class="token operator" >=</span> <span class="token keyword" >this</span><span class="token punctuation" >.</span>props<span class="token punctuation" >.</span>notes<span class="token punctuation" >;</span>
+
+  <span class="token keyword" >return</span> <span class="token operator" >&lt;</span>ul className<span class="token operator" >=</span><span class="token string" >'notes'</span><span class="token operator" >></span><span class="token punctuation" >{</span>notes<span class="token punctuation" >.</span><span class="token function" >map</span><span class="token punctuation" >(</span><span class="token keyword" >this</span><span class="token punctuation" >.</span>renderNote<span class="token punctuation" >)</span><span class="token punctuation" >}</span><span class="token operator" >&lt;</span><span class="token operator" >/</span>ul<span class="token operator" >></span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+</code></pre>
+<p>y acompañarlo de CSS, tendremos algo como esto:</p>
+<pre><code class="lang-javascript"><span class="token function" >render</span><span class="token punctuation" >(</span>props<span class="token punctuation" >,</span> context<span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+  <span class="token keyword" >const</span> notes <span class="token operator" >=</span> <span class="token keyword" >this</span><span class="token punctuation" >.</span>props<span class="token punctuation" >.</span>notes<span class="token punctuation" >;</span>
+  <span class="token keyword" >const</span> style <span class="token operator" >=</span> <span class="token punctuation" >{</span>
+    margin<span class="token punctuation" >:</span> <span class="token string" >'0.5em'</span><span class="token punctuation" >,</span>
+    paddingLeft<span class="token punctuation" >:</span> <span class="token number" >0</span><span class="token punctuation" >,</span>
+    listStyle<span class="token punctuation" >:</span> <span class="token string" >'none'</span>
+  <span class="token punctuation" >}</span><span class="token punctuation" >;</span>
+
+  <span class="token keyword" >return</span> <span class="token operator" >&lt;</span>ul style<span class="token operator" >=</span><span class="token punctuation" >{</span>style<span class="token punctuation" >}</span><span class="token operator" >></span><span class="token punctuation" >{</span>notes<span class="token punctuation" >.</span><span class="token function" >map</span><span class="token punctuation" >(</span><span class="token keyword" >this</span><span class="token punctuation" >.</span>renderNote<span class="token punctuation" >)</span><span class="token punctuation" >}</span><span class="token operator" >&lt;</span><span class="token operator" >/</span>ul<span class="token operator" >></span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+</code></pre>
+<p>Como ocurre con los nombres de los atributos en HTML, usaremos la convención camel case para las propiedades CSS.</p>
+<p>Ahora que estamos aplicando estilos a nivel de componente podemos implementar la lógica que modifica estos estilos fácilmente. Una forma clásica de hacer esto ha sido alterar los nombres de las clases basándonos en el aspecto que queremos tener. Ahora podemos ajustar las propiedades que queramos directamente.</p>
+<p>Sin embargo, hemos perdido algo por el camino. Ahora nuestros estilos están fuertemente ligados a nuestro código JavaScript. Va a ser difícil hacer cambios de mucha envergadura sobre nuestra base del código ya que vamos a tener que modificar un montón de componentes para ello.</p>
+<p>Podemos tratar de hacer algo para ello inyectando algunos estilos mediante props. Un estilo puede adaptar su propio estilo basado en uno que reciba. Esto se puede mejorar más adelante mediante convenciones que permitan que ciertas partes de la configuración de los estilos lleguen a ciertas partes específicas de los componentes. Es simplemente reinventar los selectores a una pequeña escala.</p>
+<p>¿Qué hacemos con cosas como los media queries?. Esta inocente aproximación no se encarga de ello. Afortunandamente hay gente que ha desarrollado librerías que solucionan estos problemas por nosotros.</p>
+<p>Según Michele Bertoli las características básicas de estas librerías son</p>
+<ul>
+<li>Autoprefixing - p.e., para <code>border</code>, <code>animation</code>, <code>flex</code>.</li>
+<li>Pseudo clases - p.e., <code>:hover</code>, <code>:active</code>.</li>
+<li>Media queries - p.e., <code>@media (max-width: 200px)</code>.</li>
+<li>Estilos como Objetos - Revisa el ejemplo anterior.</li>
+<li>Extracción de estilos CSS - Es útil para poder partir un fichero CSS grande en ficheros CSS pequeños que ayuden con la primera carga de la página. Esto evita que veamos la página sin estilos al entrar  (FOUC).</li>
+</ul>
+<p>Vamos a ver algunas de las librerías disponibles para que te hagas una idea de cómo funcionan. Echa un vistazo a <a href="https://github.com/MicheleBertoli/css-in-js">la list de Michele</a> para tener una mejor visión de la situación.</p>
+<h3 class="header"><a class="header-anchor" href="#radium" id="radium"></a><span class="text">Radium</span><a class="header-anchor-select" href="#radium">#</a></h3>
+<p><a href="http://projects.formidablelabs.com/radium/">Radium</a> tiene algunas ideas valiosas que merece la pena destacar. Lo más importante es que facilita las abstracciones necesarias para poder lidiar con media queries y pseudo clases (p.e. <code>:hover</code>). Expande la sintaxis básica como sigue:</p>
+<pre><code class="lang-javascript"><span class="token keyword" >const</span> styles <span class="token operator" >=</span> <span class="token punctuation" >{</span>
+  button<span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+    padding<span class="token punctuation" >:</span> <span class="token string" >'1em'</span><span class="token punctuation" >,</span>
+
+    <span class="token string" >':hover'</span><span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+      border<span class="token punctuation" >:</span> <span class="token string" >'1px solid black'</span>
+    <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
+
+    <span class="token string" >'@media (max-width: 200px)'</span><span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+      width<span class="token punctuation" >:</span> <span class="token string" >'100%'</span><span class="token punctuation" >,</span>
+
+      <span class="token string" >':hover'</span><span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+        background<span class="token punctuation" >:</span> <span class="token string" >'white'</span><span class="token punctuation" >,</span>
+      <span class="token punctuation" >}</span>
+    <span class="token punctuation" >}</span>
+  <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
+  primary<span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+    background<span class="token punctuation" >:</span> <span class="token string" >'green'</span>
+  <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
+  warning<span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+    background<span class="token punctuation" >:</span> <span class="token string" >'yellow'</span>
+  <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >;</span>
+
+<span class="token punctuation" >.</span><span class="token punctuation" >.</span><span class="token punctuation" >.</span>
+
+<span class="token operator" >&lt;</span>button style<span class="token operator" >=</span><span class="token punctuation" >{</span><span class="token punctuation" >[</span>styles<span class="token punctuation" >.</span>button<span class="token punctuation" >,</span> styles<span class="token punctuation" >.</span>primary<span class="token punctuation" >]</span><span class="token punctuation" >}</span><span class="token operator" >></span>Confirm<span class="token operator" >&lt;</span><span class="token operator" >/</span>button<span class="token operator" >></span>
+</code></pre>
+<p>Para que la propiedad <code>style</code> funcione deberás anotar tus clases usando el decorador <code>@Radium</code>.</p>
+<h3 class="header"><a class="header-anchor" href="#react-style" id="react-style"></a><span class="text">React Style</span><a class="header-anchor-select" href="#react-style">#</a></h3>
+<p><a href="https://github.com/js-next/react-style">React Style</a> utiliza la misma sintaxis que React Native <a href="https://facebook.github.io/react-native/docs/stylesheet.html#content">StyleSheet</a>. Alarga la definición básica introduciendo algunas claves adicionales para cada fragmento.</p>
+<pre><code class="lang-javascript"><span class="token keyword" >import</span> StyleSheet <span class="token keyword" >from</span> <span class="token string" >'react-style'</span><span class="token punctuation" >;</span>
+
+<span class="token keyword" >const</span> styles <span class="token operator" >=</span> StyleSheet<span class="token punctuation" >.</span><span class="token function" >create</span><span class="token punctuation" >(</span><span class="token punctuation" >{</span>
+  primary<span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+    background<span class="token punctuation" >:</span> <span class="token string" >'green'</span>
+  <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
+  warning<span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+    background<span class="token punctuation" >:</span> <span class="token string" >'yellow'</span>
+  <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
+  button<span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+    padding<span class="token punctuation" >:</span> <span class="token string" >'1em'</span>
+  <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
+  <span class="token comment" spellcheck="true">// media queries</span>
+  <span class="token string" >'@media (max-width: 200px)'</span><span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+    button<span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+      width<span class="token punctuation" >:</span> <span class="token string" >'100%'</span>
+    <span class="token punctuation" >}</span>
+  <span class="token punctuation" >}</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+<span class="token punctuation" >.</span><span class="token punctuation" >.</span><span class="token punctuation" >.</span>
+
+<span class="token operator" >&lt;</span>button styles<span class="token operator" >=</span><span class="token punctuation" >{</span><span class="token punctuation" >[</span>styles<span class="token punctuation" >.</span>button<span class="token punctuation" >,</span> styles<span class="token punctuation" >.</span>primary<span class="token punctuation" >]</span><span class="token punctuation" >}</span><span class="token operator" >></span>Confirm<span class="token operator" >&lt;</span><span class="token operator" >/</span>button<span class="token operator" >></span>
+</code></pre>
+<p>Como puedes ver, podemos uasr fragmentos individuales para tener el mismo efecto que teniamos con Radium. Además, los media queries también están soportados. React Style espera que manipules los estados del navegador (p.e. <code>hover</code>) mediante JavaScript. Las animaciones con CSS no funcionarán, es mejor usar alguna otra solución para ello.</p>
+<blockquote class="tip"><i class="icon-attention-circled"></i><a href="https://github.com/js-next/react-style-webpack-plugin">El plugin de React Style para Webpack</a> puede extraer las declaraciones del CSS en un paquete aparte. Ahora estamos más cerca de lo que ha utilizado todo el mundo, pero no tenemos las cascadas, aunque mantenemos la declaración de los estilos a nivel de componente.</blockquote><h3 class="header"><a class="header-anchor" href="#jss" id="jss"></a><span class="text">JSS</span><a class="header-anchor-select" href="#jss">#</a></h3>
+<p><a href="https://github.com/jsstyles/jss">JSS</a> es un compilador de JSON a hoja de estilos. Puede ser una forma útil de representar estilos usando estructuras JSON ya que tiene un espacio de nombres sencillo. También es posible realizar tranformaciones en el JSON para obtener más funcionalidad, como el autoprefixing. JSS tiene una interfaz para plugins con la que hacer este tipo de cosas.</p>
+<p>JSS puede utilizarse con React a través de <a href="https://www.npmjs.com/package/react-jss">react-jss</a>. Puedes usar <em>react-jss</em> de este modo:</p>
+<pre><code class="lang-javascript"><span class="token punctuation" >.</span><span class="token punctuation" >.</span><span class="token punctuation" >.</span>
+<span class="token keyword" >import</span> classnames <span class="token keyword" >from</span> <span class="token string" >'classnames'</span><span class="token punctuation" >;</span>
+<span class="token keyword" >import</span> useSheet <span class="token keyword" >from</span> <span class="token string" >'react-jss'</span><span class="token punctuation" >;</span>
+
+<span class="token keyword" >const</span> styles <span class="token operator" >=</span> <span class="token punctuation" >{</span>
+  button<span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+    padding<span class="token punctuation" >:</span> <span class="token string" >'1em'</span>
+  <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
+  <span class="token string" >'media (max-width: 200px)'</span><span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+    button<span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+      width<span class="token punctuation" >:</span> <span class="token string" >'100%'</span>
+    <span class="token punctuation" >}</span>
+  <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
+  primary<span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+    background<span class="token punctuation" >:</span> <span class="token string" >'green'</span>
+  <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
+  warning<span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+    background<span class="token punctuation" >:</span> <span class="token string" >'yellow'</span>
+  <span class="token punctuation" >}</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >;</span>
+
+@<span class="token function" >useSheet</span><span class="token punctuation" >(</span>styles<span class="token punctuation" >)</span>
+<span class="token keyword" >export</span> <span class="token keyword" >default</span> <span class="token keyword" >class</span> <span class="token class-name" >ConfirmButton</span> <span class="token keyword" >extends</span> <span class="token class-name" >React<span class="token punctuation" >.</span>Component</span> <span class="token punctuation" >{</span>
+  <span class="token function" >render</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    <span class="token keyword" >const</span> <span class="token punctuation" >{</span>classes<span class="token punctuation" >}</span> <span class="token operator" >=</span> <span class="token keyword" >this</span><span class="token punctuation" >.</span>props<span class="token punctuation" >.</span>sheet<span class="token punctuation" >;</span>
+
+    <span class="token keyword" >return</span> <span class="token operator" >&lt;</span>button
+      className<span class="token operator" >=</span><span class="token punctuation" >{</span><span class="token function" >classnames</span><span class="token punctuation" >(</span>classes<span class="token punctuation" >.</span>button<span class="token punctuation" >,</span> classes<span class="token punctuation" >.</span>primary<span class="token punctuation" >)</span><span class="token punctuation" >}</span><span class="token operator" >></span>
+        Confirm
+      <span class="token operator" >&lt;</span><span class="token operator" >/</span>button<span class="token operator" >></span><span class="token punctuation" >;</span>
+  <span class="token punctuation" >}</span>
+<span class="token punctuation" >}</span>
+</code></pre>
+<blockquote class="tip"><i class="icon-attention-circled"></i>Hay un <a href="https://www.npmjs.com/package/jss-loader">jss-loader</a> para Webpack.</blockquote><h3 class="header"><a class="header-anchor" href="#react-inline" id="react-inline"></a><span class="text">React Inline</span><a class="header-anchor-select" href="#react-inline">#</a></h3>
+<p><a href="https://github.com/martinandert/react-inline">React Inline</a> es un enfoque intereasnte para aplicar estilos. Genera CSS basado en la prop <code>className</code> de los elementos que lo usen. El ejemplo anterior puede ser adaptado para React Inline de esta manera:</p>
+<pre><code class="lang-javascript"><span class="token keyword" >import</span> cx <span class="token keyword" >from</span> <span class="token string" >'classnames'</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >.</span><span class="token punctuation" >.</span><span class="token punctuation" >.</span>
+
+<span class="token keyword" >class</span> <span class="token class-name" >ConfirmButton</span> <span class="token keyword" >extends</span> <span class="token class-name" >React<span class="token punctuation" >.</span>Component</span> <span class="token punctuation" >{</span>
+  <span class="token function" >render</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    <span class="token keyword" >const</span> <span class="token punctuation" >{</span>className<span class="token punctuation" >}</span> <span class="token operator" >=</span> <span class="token keyword" >this</span><span class="token punctuation" >.</span>props<span class="token punctuation" >;</span>
+    <span class="token keyword" >const</span> classes <span class="token operator" >=</span> <span class="token function" >cx</span><span class="token punctuation" >(</span>styles<span class="token punctuation" >.</span>button<span class="token punctuation" >,</span> styles<span class="token punctuation" >.</span>primary<span class="token punctuation" >,</span> className<span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+    <span class="token keyword" >return</span> <span class="token operator" >&lt;</span>button className<span class="token operator" >=</span><span class="token punctuation" >{</span>classes<span class="token punctuation" >}</span><span class="token operator" >></span>Confirm<span class="token operator" >&lt;</span><span class="token operator" >/</span>button<span class="token operator" >></span><span class="token punctuation" >;</span>
+  <span class="token punctuation" >}</span>
+<span class="token punctuation" >}</span>
+</code></pre>
+<p>Por desgracia, se basa en su propia herramienta personalizada para generar código de React y el CSS que necesita para trabajar.</p>
+<h3 class="header"><a class="header-anchor" href="#jsxstyle" id="jsxstyle"></a><span class="text">jsxstyle</span><a class="header-anchor-select" href="#jsxstyle">#</a></h3>
+<p>El <a href="https://github.com/petehunt/jsxstyle">jsxstyle</a> de Pete Hunt trata de mitigar algunos de los problemas React Style. Como has podido ver en los ejemplos anteriores, todavía tenemos las definiciones de los estilos separadas del lenguaje de marcado de los componentes. jsxstyle une ambos conceptos. Observa el siguiente ejemplo:</p>
+<pre><code class="lang-javascript"><span class="token comment" spellcheck="true">// PrimaryButton component</span>
+<span class="token operator" >&lt;</span>button
+  padding<span class="token operator" >=</span><span class="token string" >'1em'</span>
+  background<span class="token operator" >=</span><span class="token string" >'green'</span>
+<span class="token operator" >></span>Confirm<span class="token operator" >&lt;</span><span class="token operator" >/</span>button<span class="token operator" >></span>
+</code></pre>
+<p>Esta aproximación todavía está en fase inicial. Por ejemplo, no hay soporte para media queries. En lugar de definir modificadores como antes, acabarás definiendo más componentes con los que dar cabida a tus casos de uso.</p>
+<blockquote class="tip"><i class="icon-attention-circled"></i>Al igual que con React Style, jsxstyle tieen un cargador de Webpack que puede extraer CSS en un fichero separado.</blockquote><h2 class="header"><a class="header-anchor" href="#m-dulos-css" id="m-dulos-css"></a><span class="text">Módulos CSS</span><a class="header-anchor-select" href="#m-dulos-css">#</a></h2>
+<p>Como si no hubiera suficientes opciones de estilo para React, hay una más que merece la pena mencionar. <a href="https://github.com/css-modules/css-modules">Módulos CSS</a> parte de la premisa de que los estilos CSS deben ser locales por defecto. Los estilos globales deben ser tratadas como un caso especial. El post <a href="https://medium.com/seek-ui-engineering/the-end-of-global-css-90d2a4a06284">The End of Global CSS</a> de Mark Dalgleish entra en más detalles sobre esto.</p>
+<p>De forma resumida, si se te hace difícil usar estilos globales, tienes que apañártelas para resolver el mayor problemas de las CSS. Esta aproximación te permite desarrollar CSS como hemos estado haciendo hasta ahora, solo que esta vez el ámbito se reduce a un contexto más seguro y localizado por defecto.</p>
+<p>Esto en sí mismo soluciona una gran cantidad de los problemas que las librerias anteriores trataban de resolver a su propia forma. Si necesitas estilos globales todavía puedes tenerlos, es probable que queramos tener ciertos estilos que apliquen a alto nivel, después de todo. Esta vez seremos explícitos en ello.</p>
+<p>Para qur te hagas una idea mejor, fíjate en el siguiente ejemplo:</p>
+<p><strong>style.css</strong></p>
+<pre><code class="lang-css"><span class="token selector" ><span class="token class" >.primary</span> </span><span class="token punctuation" >{</span>
+  <span class="token property" >background</span><span class="token punctuation" >:</span> <span class="token string" >'green'</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+
+<span class="token selector" ><span class="token class" >.warning</span> </span><span class="token punctuation" >{</span>
+  <span class="token property" >background</span><span class="token punctuation" >:</span> <span class="token string" >'yellow'</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+
+<span class="token selector" ><span class="token class" >.button</span> </span><span class="token punctuation" >{</span>
+  <span class="token property" >padding</span><span class="token punctuation" >:</span> <span class="token number" >1</span>em<span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+
+<span class="token selector" ><span class="token class" >.primaryButton</span> </span><span class="token punctuation" >{</span>
+  <span class="token property" >composes</span><span class="token punctuation" >:</span> primary button<span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+
+<span class="token atrule" ><span class="token rule" >@media</span> <span class="token punctuation" >(</span><span class="token property" >max-width</span><span class="token punctuation" >:</span> 200px<span class="token punctuation" >)</span></span> <span class="token punctuation" >{</span>
+  <span class="token selector" ><span class="token class" >.primaryButton</span> </span><span class="token punctuation" >{</span>
+    <span class="token property" >composes</span><span class="token punctuation" >:</span> primary button<span class="token punctuation" >;</span>
+
+    <span class="token property" >width</span><span class="token punctuation" >:</span> <span class="token number" >100%</span><span class="token punctuation" >;</span>
+  <span class="token punctuation" >}</span>
+<span class="token punctuation" >}</span>
+</code></pre>
+<p><strong>button.jsx</strong></p>
+<pre><code class="lang-javascript"><span class="token keyword" >import</span> styles <span class="token keyword" >from</span> <span class="token string" >'./style.css'</span><span class="token punctuation" >;</span>
+
+<span class="token punctuation" >.</span><span class="token punctuation" >.</span><span class="token punctuation" >.</span>
+
+<span class="token operator" >&lt;</span>button className<span class="token operator" >=</span><span class="token template-string" ><span class="token string" >`</span><span class="token interpolation" ><span class="token interpolation-punctuation punctuation" >${</span>styles<span class="token punctuation" >.</span>primaryButton<span class="token interpolation-punctuation punctuation" >}</span></span><span class="token string" >`</span></span><span class="token operator" >></span>Confirm<span class="token operator" >&lt;</span><span class="token operator" >/</span>button<span class="token operator" >></span>
+</code></pre>
+<p>Como puedes ver, esta aproximación trata de encontrar el equilibrio entre aquello que a la gente le resulta familiar con librerías específicas para React. Es por ello que no me sorprende que esta aproximación sea muy popular aunque todavía sea reciente. Echa un ojo a <a href="https://css-modules.github.io/webpack-demo/">la demo de CSS Modules de Webpack</a> para ver más ejemplos.</p>
+<blockquote class="tip"><i class="icon-attention-circled"></i>Puedes usar procesadores, como Sass, junto con Módulos CSS, en caso de que busques tener más funcionalidad.</blockquote><blockquote class="tip"><i class="icon-attention-circled"></i><a href="https://github.com/gajus/react-css-modules">gajus/react-css-modules</a> hace que sea más sencillo todavía usar Módulos CSS con React. Con él, no tendrás que referencia al objeto <code>styles</code> nunca más, y no estás obligado a poner nombres usando camelCase.</blockquote><blockquote class="tip"><i class="icon-attention-circled"></i>Glen Maddern discute este tema con mucho más detalle en si artículo llamado <a href="http://glenmaddern.com/articles/css-modules">CSS Modules - Bienvenidos al Futuro</a>.</blockquote><h2 class="header"><a class="header-anchor" href="#conclusi-n" id="conclusi-n"></a><span class="text">Conclusión</span><a class="header-anchor-select" href="#conclusi-n">#</a></h2>
+<p>Es fácil probar varias aproximaciones de estilos con React. Puedes hacerlo, yendo desde CSS plano hasta configuraciones más complejas. Es sencillo probar distintas alternativas.</p>
+<p>Las aproximaciones te permiten dejar los estilos a nivel de componente. Esto nos ofrece un contraste interesante con respecto a las aproximaciones convencionales en las que las CSS se mantienen separadas. Lidiar con la lógica específica del componente se vuelve más sencillo. Puede que pierdas algo del poder que te dan las CSS, pero obtendrás algo más sencillo de entender que puede ser más difícil de romper.</p>
+<p>Los Módulos CSS buscan un equilibrio entre un enfoque convencional y un enfoque específico para React. Incluso aún siendo un recién llegado parece tener mucho potencial. El mayor beneficio parece ser que no perderás mucho durante el proceso. Representa un paso adelante que ha sido comúnmente usado.</p>
+<p>Todavía no existen buenas prácticas, y todavía estamos tratando de encontrar la mejor manera de aplicar estilos con React. Tendrás que experimentar un poco por tí mismo para hacerte una idea de qué es lo que mejor encaja en tu caso particular.</p>
+</div><div class="social-links"><blockquote class="tip">If you enjoyed this page, consider subscribing to the mailing list below or following <a href="https://twitter.com/survivejs">@survivejs</a> for occasional updates. There is also <a href="/atom.xml">RSS</a> available for old beards (no pun intended).</blockquote><h2 class="subscribe-header">Subscribe to the mailing list</h2><form action="//jster.us7.list-manage.com/subscribe/post?u=ed40c0084a0c5ba31b3365d65&amp;amp;id=b853b8e786" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate social-form" target="_blank" novalidate=""><div id="mc_embed_signup_scroll"><div class="mc-field-group social-input-container"><input type="email" placeholder="Email" value="" name="EMAIL" class="required email" id="mce-EMAIL"/></div><div style="display:none;position:absolute;left:-5000px;"><input type="text" name="b_ed40c0084a0c5ba31b3365d65_b853b8e786" tabindex="-1" value=""/></div><div class="social-subscribe-container"><input type="submit" class="btn button social-subscribe" style="margin-top:1em;margin-bottom:1em;line-height:2em;" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"/></div></div></form></div><div class="new-prevnext"><div class="new-prevnext__prev"><div class="new-prevnext__bg" style="background-image:url(/074d8abbdb6ed554a1f21462bb0c621b.jpg);"></div><span class="new-prevnext__info">Capítulo anterior</span><a class="new-prevnext__link" href="/react/advanced-techniques/typing-with-react/">Tipado con React</a></div><div class="new-prevnext__next"><div class="new-prevnext__bg" style="background-image:url(/8ec15264bf5ed369c6255c71e8d409a6.jpg);"></div><span class="new-prevnext__info">Pŕoximo capítulo</span><a class="new-prevnext__link" href="/react/advanced-techniques/structuring-react-projects/">Estructurando Proyectos con React</a></div></div><blockquote class="tip"><p>Puedes encontrar este libro en <a href="https://leanpub.com/survivejs-react">Leanpub</a>. Comprando este libro permitirás el desarrollo de más contenido.</p></blockquote><div id="disqus_thread"></div></div></div><div><a class="next-page" title="Estructurando Proyectos con React" href="/react/advanced-techniques/structuring-react-projects/"><i class="icon-right-open"></i></a><a class="previous-page" title="Tipado con React" href="/react/advanced-techniques/typing-with-react/"><i class="icon-left-open"></i></a></div><script type="text/javascript">var disqus_shortname = 'survivejs';(function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script></div><div class="nav__wrapper"><input type="checkbox" class="nav__toggle" id="nav__toggle"/><label class="nav__toggle-label" for="nav__toggle"></label><nav class="nav"><div class="nav__link"><a href="/">Home</a></div><div class="nav__link"><a href="/blog/">Leer el blog</a></div><div class="nav__link"><a href="/training/">Formación</a></div><div class="nav__link"><a href="https://leanpub.com/survivejs-react">Compra el ebook</a></div><div class="nav__link"><a href="/"></a></div><div class="nav__link"><a href="https://twitter.com/survivejs">@survivejs</a></div></nav></div><a href="https://github.com/survivejs/site" class="github-corner"><svg width="80" height="80" viewBox="0 0 250 250" style="position:absolute;top:0;fill:#000;right:0;"><path class="octo-banner" d="M0 0l115 115h15l12 27 108 108V0z" fill="#fff"></path><path class="octo-arm" d="M128 109c-15-9-9-19-9-19 3-7 2-11 2-11-1-7 3-2 3-2 4 5 2 11 2 11-3 10 5 15 9 16" style="-webkit-transform-origin:130px 106px;transform-origin:130px 106px;"></path><path class="octo-body" d="M115 115s4 2 5 0l14-14c3-2 6-3 8-3-8-11-15-24 2-41 5-5 10-7 16-7 1-2 3-7 12-11 0 0 5 3 7 16 4 2 8 5 12 9s7 8 9 12c14 3 17 7 17 7-4 8-9 11-11 11 0 6-2 11-7 16-16 16-30 10-41 2 0 3-1 7-5 11l-12 11c-1 1 1 5 1 5z"></path></svg></a><footer><div class="footer-wrapper"><div class="footer-content-wrapper"><div class="footer-social"><h3>Social</h3><ul><li><a href="https://twitter.com/survivejs" target="_blank" rel="noopener noreferrer">@survivejs</a></li><li><a href="http://eepurl.com/bth1v5" target="_blank" rel="noopener noreferrer">Mailing List</a></li><li><a href="https://gitter.im/survivejs" target="_blank" rel="noopener noreferrer">Gitter Chat</a></li><li><a href="https://github.com/survivejs" target="_blank" rel="noopener noreferrer">GitHub</a></li><li><a href="https://presentations.survivejs.com" target="_blank" rel="noopener noreferrer">Presentations</a></li><li><a href="http://goo.gl/forms/OWdGIOdHm9" target="_blank" rel="noopener noreferrer">Contact</a></li><li><a href="https://github.com/survivejs/ama/issues" target="_blank" rel="noopener noreferrer">Ask Me Anything</a></li></ul></div></div></div></footer><div><div class="gitter-open-chat-button">Need help?</div><script type="text/javascript">
+          ((window.gitter = {}).chat = {}).options = {
+            showChatByDefault: false,
+            activationElement: '.gitter-open-chat-button',
+            room: 'survivejs/react'
+          };
+        </script><script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async="" defer=""></script></div></div>
+
+    
+  </body>
+</html>

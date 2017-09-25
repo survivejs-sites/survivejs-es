@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta
+      name='viewport'
+      content='width=device-width, initial-scale=1, maximum-scale=1, minimal-ui' />
+    <meta
+      name='description'
+      content=SurviveJS />
+    <meta
+      name='keywords'
+      content= />
+    <title>SurviveJS</title>
+    
+    <link rel='icon' type='image/png' href='/assets/favicon.png'></link>
+
+    
+      <link href="/site.17316cb466d661c9c3c0.css" rel="stylesheet">
+    
+  </head>
+  <body>
+    <div><div class="chapter__wrapper"><div class="header-image" style="background-image:url(/8ec15264bf5ed369c6255c71e8d409a6.jpg);"></div><h1 class="post__heading">Estructurando Proyectos con React</h1><div class="header-extra"><a href="https://pixabay.com/en/clock-time-hour-minute-watch-272483/">epicantus (Public Domain)</a></div><div class="toc-nav__wrapper"><h4 class="search-nav--header">Search</h4><input id="search"/><h4 class="toc-nav--header">Índice</h4><ul class="toc-nav"><li class="toc-intro"><a class="toc-nav__link intro" href="/react/introduction/">Introducción</a></li><li class="toc-part"><a class="toc-nav__link part" href="/react/getting-started/">Comenzando</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/introduction-to-react/">Introducción a React</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/setting-up-the-project/">Configurando el Proyecto</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/implementing-notes/">Implementando una Aplicación de Notas</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/deleting-notes/">Borrado de Notas</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/understanding-react-components/">Comprendiendo los Componentes de React</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/editing-notes/">Edición de Notas</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/getting-started/styling-notes/">Dando Estilo a la Aplicación de Notas</a></li><li class="toc-part"><a class="toc-nav__link part" href="/react/implementing-kanban/">Implementando Kanban</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/implementing-kanban/react-and-flux/">React y Flux</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/implementing-kanban/implementing-store-and-actions/">Implementando NoteStore y NoteActions</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/implementing-kanban/implementing-persistency/">Implementando Persistencia en localStorage</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/implementing-kanban/handling-data-dependencies/">Gestionado Dependencias de Datos</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/implementing-kanban/editing-lanes/">Editando los Carriles</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/implementing-kanban/drag-and-drop/">Implementado Arrastrar y Soltar</a></li><li class="toc-part"><a class="toc-nav__link part" href="/react/advanced-techniques/">Técnicas Avanzadas</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/advanced-techniques/testing-react/">Probando React</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/advanced-techniques/typing-with-react/">Tipado con React</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/advanced-techniques/styling-react/">Aplicando Estilo a React</a></li><li class="toc-chapter"><span class="toc-nav__link toc-nav__link--current chapter">Estructurando Proyectos con React</span></li><li class="toc-part"><a class="toc-nav__link part" href="/react/appendices/">Apéndices</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/appendices/language-features/">Características del Lenguaje</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/appendices/understanding-decorators/">Entendiendo los Decoradores</a></li><li class="toc-chapter"><a class="toc-nav__link chapter" href="/react/appendices/troubleshooting/">Resolución de Problemas</a></li></ul></div><div class="chapter"><div class="post__content"><div class="chapter-content"><p>React no fuerza a tener ninguna estructura de proyecto en particular. Lo bueno de ello es que te permite tener la estructura que mejor se adapte a lo que necesites. Lo malo es que no es posible tener una estructura ideal que funcione en todos los proyectos. Por tanto, voy a darte algo de inspiración que podrás usar cuando pienses en estructuras.</p>
+<h2 class="header"><a class="header-anchor" href="#un-directorio-por-concepto" id="un-directorio-por-concepto"></a><span class="text">Un Directorio por Concepto</span><a class="header-anchor-select" href="#un-directorio-por-concepto">#</a></h2>
+<p>Nuestra aplicación Kanban tiene una estructura plana como la siguiente:</p>
+<pre><code class="lang-bash">├── actions
+│   ├── LaneActions.js
+│   └── NoteActions.js
+├── components
+│   ├── App.jsx
+│   ├── Editable.jsx
+│   ├── Lane.jsx
+│   ├── Lanes.jsx
+│   ├── Note.jsx
+│   └── Notes.jsx
+├── constants
+│   └── itemTypes.js
+├── index.jsx
+├── libs
+│   ├── alt.js
+│   ├── persist.js
+│   └── storage.js
+├── main.css
+└── stores
+    ├── LaneStore.js
+    └── NoteStore.js
+</code></pre>
+<p>Es suficiente para nuestro propósito, pero hay algunas alternativas interesantes:</p>
+<ul>
+<li>Un fichero por concepto - Perfecto para prototipos pequeño. Puedes dividirlo a medida que la aplicación se vaya haciendo más seria.</li>
+<li>Un directorio por componente - Es posible dejar componentes en directorios que pasen a ser de su propiedad. Aunque quizá sea la aproximación más pesada, tiene algunas ventajas interesantes que veremos pronto.</li>
+<li>Un directorio por vista - Esta aproximación se vuelve relevante una vez quieres introducir enrutamiento en tu aplicación.</li>
+</ul>
+<p>Hay más alternativas pero éstas cubren los casos más comunes. Siempre hay espacio para hacer ajustes en base a las necesidades de tu aplicación.</p>
+<h2 class="header"><a class="header-anchor" href="#un-directorio-por-componente" id="un-directorio-por-componente"></a><span class="text">Un Directorio por Componente</span><a class="header-anchor-select" href="#un-directorio-por-componente">#</a></h2>
+<p>Si dejamos nuestros componentes en directorios que pasen a ser de su propiedad podemos acabar teniendo algo como esto:</p>
+<pre><code class="lang-bash">├── actions
+│   ├── LaneActions.js
+│   └── NoteActions.js
+├── components
+│   ├── App
+│   │   ├── App.jsx
+│   │   ├── app.css
+│   │   ├── app_test.jsx
+│   │   └── index.js
+│   ├── Editable
+│   │   ├── Editable.jsx
+│   │   ├── editable.css
+│   │   ├── editable_test.jsx
+│   │   └── index.js
+<span class="token punctuation" >..</span>.
+│   └── index.js
+├── constants
+│   └── itemTypes.js
+├── index.jsx
+├── libs
+│   ├── alt.js
+│   ├── persist.js
+│   └── storage.js
+├── main.css
+└── stores
+    ├── LaneStore.js
+    └── NoteStore.js
+</code></pre>
+<p>Puede ser más pesada que la solución que tenemos actualmente. Los ficheros <em>index.js</em> sirven de punto de entrada para los componentes. Introducen ruido pero simplifican los imports.</p>
+<p>Sin embargo, hay algunos beneficios interesantes de esta aproximación:</p>
+<ul>
+<li>Podemos utilizar tecnologías como los Módulos CSS para aplicar estilos en cada componente de forma independiente.</li>
+<li>Dado que cada componente tiene un pequeño &quot;paquete&quot; de sí mismo, puede ser más sencillo sacarlo del proyecto. De este modo puedes crear componentes genéricos en cualquier lugar y utilizarlos en muchas aplicaciones.</li>
+<li>Podemos definir tests unitarios a nivel de componente. Esto te anima a hacer tests, y todavía podemos hacer tests de alto nivel de la aplicación exactamente igual que antes.</li>
+</ul>
+<p>Puede ser interesante tratar de dejar las acciones y los almacenes también en <code>components</code>. O pueden seguir un esquema de directorios similar. La ventaja de todo esto es que te permiten definir tests unitarios de una forma similar.</p>
+<p>Esta configuración no es suficiente si quieres que la aplicación tenga varias vistas. Necesitamos algo más que nos ayude.</p>
+<blockquote class="tip"><i class="icon-attention-circled"></i><a href="https://github.com/gajus/create-index">gajus/create-index</a> es capaz de generar los ficheros <em>index.js</em> automáticamente a medida que vas desarrollando.</blockquote><h2 class="header"><a class="header-anchor" href="#un-directorio-por-vista" id="un-directorio-por-vista"></a><span class="text">Un Directorio por Vista</span><a class="header-anchor-select" href="#un-directorio-por-vista">#</a></h2>
+<p>Tener varias vistas es un reto por sí mismo. Para comenzar, debes definir un esquema de enrutamiento. <a href="https://github.com/rackt/react-router">react-router</a> es una solución popular que cumple este propósito. Además de la definición del esquema, necesitarás definir qué quieres mostrar en cada vista. Puedes tener vistas separadas para la página principal de tu aplicación, otra para el registro, el tablero de Kanban, etc, enlanzándolas con cada ruta.</p>
+<p>Estos requisitos implican nuevos conceptos que deben ser introducidos en nuestra estructura. Una forma de lidiar con el enrutado es crear un componente <code>Routes</code> que coordine qué vista hay que mostrar en base a la ruta actual. En lugar de <code>App</code> podemos tener varias vistas en su lugar. He aquí el aspecto que podría tener una posible estructura:</p>
+<pre><code class="lang-bash">├── components
+│   ├── Note
+│   │   ├── Note.jsx
+│   │   ├── index.js
+│   │   ├── note.css
+│   │   └── note_test.jsx
+│   ├── Routes
+│   │   ├── Routes.jsx
+│   │   ├── index.js
+│   │   └── routes_test.jsx
+│   └── index.js
+<span class="token punctuation" >..</span>.
+├── index.jsx
+├── main.css
+└── views
+    ├── Home
+    │   ├── Home.jsx
+    │   ├── home.css
+    │   ├── home_test.jsx
+    │   └── index.js
+    ├── Register
+    │   ├── Register.jsx
+    │   ├── index.js
+    │   ├── register.css
+    │   └── register_test.jsx
+    └── index.js
+</code></pre>
+<p>La idea es la misma que antes, aunque esta vez tenemos más partes que coordinar. La aplicación comienza desde <code>index.jsx</code>, que invocará <code>Routes</code>, que decidirá qué vista mostrar, Tras esto el flujo sigue como hasta ahora.</p>
+<p>Esta estructura puede escalar mejor, pero también tiene sus límites. Una vez el proyecto comience a crecer puede que quieras introducir nuevos componentes en él. Puede ser natural introducir un concepto, como &quot;funcionalidad&quot;, entre las vistas y los componentes.</p>
+<p>Por ejemplo, puede que quieras tener un <code>LoginModal</code> resultón que se muestre en ciertas vistas sólo si la sesión del usuario ha caducado. Puede estar compuesto por componentes de más bajo nivel. De nuevo, las características comunes pueden ser desplazadas fuera del proyecto como paquetes si ves que tienen potencial para ser reusadas.</p>
+<h2 class="header"><a class="header-anchor" href="#conclusi-n" id="conclusi-n"></a><span class="text">Conclusión</span><a class="header-anchor-select" href="#conclusi-n">#</a></h2>
+<p>No hay una forma única de estructurar tu proyecto con React. Dicho esto, es uno de esos aspectos en los que merece la pena pensar. Encontrar una estructura que nos ayude merece la pena. Una estructura clara ayuda al mantenimiento y hace que tu proyecto sea más entendible por otros.</p>
+<p>Puedes hacer que la estructura evolucione a medida que avanzas. Las estructuras muy pesadas puede que te retrasen. A medida que el proyecto evoluciona, debe hacerlo también su estructura. Es una de esas cosas en las que merece la pena meditar acerca de cómo afecta al desarrollo.</p>
+</div><div class="social-links"><blockquote class="tip">If you enjoyed this page, consider subscribing to the mailing list below or following <a href="https://twitter.com/survivejs">@survivejs</a> for occasional updates. There is also <a href="/atom.xml">RSS</a> available for old beards (no pun intended).</blockquote><h2 class="subscribe-header">Subscribe to the mailing list</h2><form action="//jster.us7.list-manage.com/subscribe/post?u=ed40c0084a0c5ba31b3365d65&amp;amp;id=b853b8e786" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate social-form" target="_blank" novalidate=""><div id="mc_embed_signup_scroll"><div class="mc-field-group social-input-container"><input type="email" placeholder="Email" value="" name="EMAIL" class="required email" id="mce-EMAIL"/></div><div style="display:none;position:absolute;left:-5000px;"><input type="text" name="b_ed40c0084a0c5ba31b3365d65_b853b8e786" tabindex="-1" value=""/></div><div class="social-subscribe-container"><input type="submit" class="btn button social-subscribe" style="margin-top:1em;margin-bottom:1em;line-height:2em;" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"/></div></div></form></div><div class="new-prevnext"><div class="new-prevnext__prev"><div class="new-prevnext__bg" style="background-image:url(/b55f9451c82211376b2cd6620733e943.jpg);"></div><span class="new-prevnext__info">Capítulo anterior</span><a class="new-prevnext__link" href="/react/advanced-techniques/styling-react/">Aplicando Estilo a React</a></div><div class="new-prevnext__next"><div class="new-prevnext__bg" style="background-image:url(/522232d6113575bfa024935fd8d92a6d.jpg);"></div><span class="new-prevnext__info">Pŕoximo capítulo</span><a class="new-prevnext__link" href="/react/appendices/">Apéndices</a></div></div><blockquote class="tip"><p>Puedes encontrar este libro en <a href="https://leanpub.com/survivejs-react">Leanpub</a>. Comprando este libro permitirás el desarrollo de más contenido.</p></blockquote><div id="disqus_thread"></div></div></div><div><a class="next-page" title="Apéndices" href="/react/appendices/"><i class="icon-right-open"></i></a><a class="previous-page" title="Aplicando Estilo a React" href="/react/advanced-techniques/styling-react/"><i class="icon-left-open"></i></a></div><script type="text/javascript">var disqus_shortname = 'survivejs';(function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script></div><div class="nav__wrapper"><input type="checkbox" class="nav__toggle" id="nav__toggle"/><label class="nav__toggle-label" for="nav__toggle"></label><nav class="nav"><div class="nav__link"><a href="/">Home</a></div><div class="nav__link"><a href="/blog/">Leer el blog</a></div><div class="nav__link"><a href="/training/">Formación</a></div><div class="nav__link"><a href="https://leanpub.com/survivejs-react">Compra el ebook</a></div><div class="nav__link"><a href="/"></a></div><div class="nav__link"><a href="https://twitter.com/survivejs">@survivejs</a></div></nav></div><a href="https://github.com/survivejs/site" class="github-corner"><svg width="80" height="80" viewBox="0 0 250 250" style="position:absolute;top:0;fill:#000;right:0;"><path class="octo-banner" d="M0 0l115 115h15l12 27 108 108V0z" fill="#fff"></path><path class="octo-arm" d="M128 109c-15-9-9-19-9-19 3-7 2-11 2-11-1-7 3-2 3-2 4 5 2 11 2 11-3 10 5 15 9 16" style="-webkit-transform-origin:130px 106px;transform-origin:130px 106px;"></path><path class="octo-body" d="M115 115s4 2 5 0l14-14c3-2 6-3 8-3-8-11-15-24 2-41 5-5 10-7 16-7 1-2 3-7 12-11 0 0 5 3 7 16 4 2 8 5 12 9s7 8 9 12c14 3 17 7 17 7-4 8-9 11-11 11 0 6-2 11-7 16-16 16-30 10-41 2 0 3-1 7-5 11l-12 11c-1 1 1 5 1 5z"></path></svg></a><footer><div class="footer-wrapper"><div class="footer-content-wrapper"><div class="footer-social"><h3>Social</h3><ul><li><a href="https://twitter.com/survivejs" target="_blank" rel="noopener noreferrer">@survivejs</a></li><li><a href="http://eepurl.com/bth1v5" target="_blank" rel="noopener noreferrer">Mailing List</a></li><li><a href="https://gitter.im/survivejs" target="_blank" rel="noopener noreferrer">Gitter Chat</a></li><li><a href="https://github.com/survivejs" target="_blank" rel="noopener noreferrer">GitHub</a></li><li><a href="https://presentations.survivejs.com" target="_blank" rel="noopener noreferrer">Presentations</a></li><li><a href="http://goo.gl/forms/OWdGIOdHm9" target="_blank" rel="noopener noreferrer">Contact</a></li><li><a href="https://github.com/survivejs/ama/issues" target="_blank" rel="noopener noreferrer">Ask Me Anything</a></li></ul></div></div></div></footer><div><div class="gitter-open-chat-button">Need help?</div><script type="text/javascript">
+          ((window.gitter = {}).chat = {}).options = {
+            showChatByDefault: false,
+            activationElement: '.gitter-open-chat-button',
+            room: 'survivejs/react'
+          };
+        </script><script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async="" defer=""></script></div></div>
+
+    
+  </body>
+</html>
